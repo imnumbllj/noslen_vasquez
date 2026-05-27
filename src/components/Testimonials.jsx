@@ -50,11 +50,18 @@ const testimonials = [
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
+  show: { transition: { staggerChildren: 0.13 } },
 }
-const item = {
-  hidden: { opacity: 0, y: 28 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+/* Alternating: odd cards slide from left, even from right — Framer gallery style */
+const itemLeft = {
+  hidden: { opacity: 0, x: -32, scale: 0.95 },
+  show:   { opacity: 1, x: 0,   scale: 1,
+            transition: { type: 'spring', stiffness: 100, damping: 18, mass: 0.8 } },
+}
+const itemRight = {
+  hidden: { opacity: 0, x: 32,  scale: 0.95 },
+  show:   { opacity: 1, x: 0,   scale: 1,
+            transition: { type: 'spring', stiffness: 100, damping: 18, mass: 0.8 } },
 }
 
 export default function Testimonials() {
@@ -105,11 +112,13 @@ export default function Testimonials() {
           animate={inView ? 'show' : 'hidden'}
           className="grid grid-cols-1 md:grid-cols-2 gap-4"
         >
-          {testimonials.map((t) => (
+          {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
-              variants={item}
-              className="card group flex flex-col gap-5 p-7 sm:p-8 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 cursor-default"
+              variants={i % 2 === 0 ? itemLeft : itemRight}
+              whileHover={{ y: -6, scale: 1.015 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+              className="card group flex flex-col gap-5 p-7 sm:p-8 cursor-default"
             >
               {/* Large quote mark */}
               <div

@@ -1,15 +1,64 @@
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef, useEffect, useState } from 'react'
+import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { ArrowRight, Mic } from 'lucide-react'
+import MagneticButton from './MagneticButton'
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.14, delayChildren: 0.15 } },
+/* ─── Word-mask reveal ──────────────────────────────────────
+   Each word slides up from inside an overflow-hidden wrapper.
+   The "curtain" is invisible — the word appears to rise out of
+   nothing. Seen on virtually every Awwwards SOTD winner.       */
+function MaskWord({ children, delay, color, size }) {
+  return (
+    <span
+      style={{
+        display: 'inline-block',
+        overflow: 'hidden',
+        verticalAlign: 'bottom',
+        /* tiny bottom padding so descenders don't get clipped */
+        paddingBottom: '0.06em',
+        marginBottom: '-0.06em',
+      }}
+    >
+      <motion.span
+        initial={{ y: '108%', opacity: 0 }}
+        animate={{ y: '0%',   opacity: 1 }}
+        transition={{ delay, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        style={{ display: 'inline-block', color }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  )
 }
-const item = {
-  hidden: { opacity: 0, y: 36 },
-  show:   { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
+
+/* ─── Counting number ───────────────────────────────────────
+   Counts from 0 → target with cubic-ease-out when in viewport. */
+function CountUp({ to, suffix = '', duration = 1600 }) {
+  const ref   = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-10px' })
+  const [val, setVal] = useState(0)
+
+  useEffect(() => {
+    if (!inView) return
+    const start = performance.now()
+    const tick  = (now) => {
+      const t      = Math.min((now - start) / duration, 1)
+      const eased  = 1 - Math.pow(1 - t, 3)        // cubic ease-out
+      setVal(Math.round(eased * to))
+      if (t < 1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }, [inView, to, duration])
+
+  return <span ref={ref}>{val}{suffix}</span>
 }
+
+/* ─── Stagger badge / sub / cta ─────────────────────────── */
+const fadeUp = (delay) => ({
+  initial: { opacity: 0, y: 22, filter: 'blur(3px)' },
+  animate: { opacity: 1, y: 0,  filter: 'blur(0px)' },
+  transition: { delay, duration: 0.85, ease: [0.16, 1, 0.3, 1] },
+})
 
 export default function Hero() {
   const ref = useRef(null)
@@ -42,104 +91,103 @@ export default function Hero() {
       <div className="absolute inset-0 pointer-events-none"
            style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.38) 0%, transparent 60%)' }} />
 
-      {/* ── Top brand accent line ── */}
+      {/* ── Brand accent line ── */}
       <div className="absolute top-0 inset-x-0 h-px pointer-events-none"
            style={{ background: 'linear-gradient(to right, transparent, rgb(var(--brand) / 0.45), transparent)' }} />
 
-      {/* ── Content — bottom-anchored ── */}
+      {/* ── Content ── */}
       <motion.div
         style={{ opacity: contentOp, y: contentY }}
         className="relative z-10 w-full"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-20 lg:pb-28 pt-44">
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="max-w-5xl"
+
+          {/* Badge */}
+          <motion.div {...fadeUp(0.05)} className="mb-8">
+            <span
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-white/75 text-[11px] font-bold uppercase tracking-[0.15em]"
+              style={{
+                background: 'rgba(255,255,255,0.07)',
+                border: '1px solid rgba(255,255,255,0.14)',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'rgb(var(--brand))' }} />
+              <Mic size={10} />
+              Conferencista · Asesora Emocional · Cuba
+            </span>
+          </motion.div>
+
+          {/* ── HEADLINE — word-mask reveal ── */}
+          <h1
+            className="font-black leading-[0.88] tracking-[-0.025em] mb-8"
+            style={{ fontSize: 'clamp(3.6rem, 12vw, 9.5rem)' }}
           >
-            {/* Badge */}
-            <motion.div variants={item} className="mb-8">
-              <span
-                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-white/75 text-[11px] font-bold uppercase tracking-[0.15em]"
-                style={{
-                  background: 'rgba(255,255,255,0.07)',
-                  border: '1px solid rgba(255,255,255,0.14)',
-                  backdropFilter: 'blur(12px)',
-                }}
-              >
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'rgb(var(--brand))' }} />
-                <Mic size={10} />
-                Conferencista · Asesora Emocional · Cuba
-              </span>
-            </motion.div>
+            {/* Line 1 — brand green */}
+            <div style={{ marginBottom: '0.04em' }}>
+              <MaskWord delay={0.18} color="rgb(var(--brand))">Sé</MaskWord>
+              {' '}
+              <MaskWord delay={0.27} color="rgb(var(--brand))">feliz,</MaskWord>
+            </div>
+            {/* Line 2 — white */}
+            <div>
+              <MaskWord delay={0.38} color="white">no</MaskWord>
+              {' '}
+              <MaskWord delay={0.46} color="white">perfecta.</MaskWord>
+            </div>
+          </h1>
 
-            {/* Mega headline */}
-            <motion.h1
-              variants={item}
-              className="font-black text-white leading-[0.88] tracking-[-0.025em] mb-8"
-              style={{ fontSize: 'clamp(3.6rem, 12vw, 9.5rem)' }}
-            >
-              <span style={{ color: 'rgb(var(--brand))' }}>Sé feliz,</span>
-              <br />
-              no perfecta.
-            </motion.h1>
+          {/* Sub */}
+          <motion.p {...fadeUp(0.6)} className="text-white/60 text-lg lg:text-xl max-w-[480px] mb-11 leading-relaxed font-light">
+            Porque tu historia no se guarda — se construye. Más de una década acompañando personas en su transformación emocional.
+          </motion.p>
 
-            {/* Sub */}
-            <motion.p
-              variants={item}
-              className="text-white/60 text-lg lg:text-xl max-w-[480px] mb-11 leading-relaxed font-light"
-            >
-              Porque tu historia no se guarda — se construye. Más de una década acompañando personas en su transformación emocional.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div variants={item} className="flex flex-wrap items-center gap-3.5 mb-14">
+          {/* CTAs — magnetic effect */}
+          <motion.div {...fadeUp(0.72)} className="flex flex-wrap items-center gap-3.5 mb-14">
+            <MagneticButton>
               <a
                 href="#contacto"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all duration-200 shadow-xl"
-                style={{
-                  background: 'rgb(var(--brand))',
-                  boxShadow: '0 8px 32px rgba(var(--brand), 0.35)',
-                }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all duration-200"
+                style={{ background: 'rgb(var(--brand))', boxShadow: '0 8px 32px rgba(22,163,74,0.35)' }}
                 onMouseEnter={e => { e.currentTarget.style.filter = 'brightness(1.12)' }}
                 onMouseLeave={e => { e.currentTarget.style.filter = '' }}
               >
-                Trabajemos juntos
-                <ArrowRight size={15} />
+                Trabajemos juntos <ArrowRight size={15} />
               </a>
+            </MagneticButton>
+            <MagneticButton>
               <a
                 href="#sobre-mi"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white/75 transition-all duration-200"
-                style={{
-                  border: '1px solid rgba(255,255,255,0.18)',
-                  backdropFilter: 'blur(8px)',
-                }}
+                style={{ border: '1px solid rgba(255,255,255,0.18)', backdropFilter: 'blur(8px)' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.38)'; e.currentTarget.style.color = 'white' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)' }}
               >
                 Mi historia
               </a>
-            </motion.div>
-
-            {/* Stats strip */}
-            <motion.div
-              variants={item}
-              className="flex items-center gap-10 pt-8"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
-            >
-              {[
-                { value: '10+',  label: 'Años de experiencia' },
-                { value: '500+', label: 'Vidas transformadas' },
-                { value: '3',    label: 'Países alcanzados' },
-              ].map(s => (
-                <div key={s.label} className="flex flex-col gap-0.5">
-                  <span className="text-3xl font-black text-white leading-none tracking-tight">{s.value}</span>
-                  <span className="text-[11px] text-white/42 font-medium uppercase tracking-wide">{s.label}</span>
-                </div>
-              ))}
-            </motion.div>
+            </MagneticButton>
           </motion.div>
+
+          {/* ── Stats — counting numbers ── */}
+          <motion.div
+            {...fadeUp(0.88)}
+            className="flex items-center gap-10 pt-8"
+            style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
+          >
+            {[
+              { to: 10,  suffix: '+', label: 'Años de experiencia' },
+              { to: 500, suffix: '+', label: 'Vidas transformadas' },
+              { to: 3,   suffix: '',  label: 'Países alcanzados'   },
+            ].map(s => (
+              <div key={s.label} className="flex flex-col gap-0.5">
+                <span className="text-3xl font-black text-white leading-none tracking-tight">
+                  <CountUp to={s.to} suffix={s.suffix} />
+                </span>
+                <span className="text-[11px] text-white/42 font-medium uppercase tracking-wide">{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
+
         </div>
       </motion.div>
 
@@ -147,7 +195,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 0.7 }}
+        transition={{ delay: 2.4, duration: 0.7 }}
         className="absolute bottom-8 right-8 lg:right-14 z-10"
       >
         <motion.div

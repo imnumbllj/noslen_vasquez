@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar'
+import ScrollProgressBar from '../components/ScrollProgressBar'
 import Hero from '../components/Hero'
 import Credibility from '../components/Credibility'
 import About from '../components/About'
@@ -13,6 +14,7 @@ import Footer from '../components/Footer'
 export default function NoslenPage() {
   return (
     <div className="min-h-screen bg-base">
+      <ScrollProgressBar />
       <Navbar />
       <main>
         <Hero />

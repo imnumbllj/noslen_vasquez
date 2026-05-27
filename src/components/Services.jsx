@@ -199,7 +199,9 @@ export default function Services() {
               <motion.div
                 key={s.id}
                 variants={cardItem}
-                className={`card group flex flex-col hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 overflow-hidden ${s.gridClass}`}
+                whileHover={{ y: -6, scale: 1.012 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+                className={`card group flex flex-col overflow-hidden ${s.gridClass}`}
               >
                 {/* Top accent bar */}
                 <div className={`h-0.5 bg-gradient-to-r ${c.bar} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
