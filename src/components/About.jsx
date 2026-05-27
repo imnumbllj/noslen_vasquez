@@ -29,7 +29,7 @@ export default function About() {
           initial={{ opacity: 0, x: -30 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative grid grid-cols-2 gap-3 sm:gap-4"
+          className="grid grid-cols-2 gap-3 sm:gap-4"
         >
           <PhotoPlaceholder
             label="Noslen en conferencia"
@@ -41,21 +41,16 @@ export default function About() {
             aspectRatio="aspect-square"
             className="col-span-1"
           />
-          <PhotoPlaceholder
-            label="Foto personal"
-            aspectRatio="aspect-square"
-            className="col-span-1"
-          />
 
-          {/* Badge */}
+          {/* Badge as a grid cell — no overlap */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.85 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.5, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -bottom-4 -right-4 sm:-bottom-5 sm:-right-5 bg-brand text-white rounded-2xl px-4 py-3.5 shadow-xl shadow-brand/25"
+            className="col-span-1 bg-brand text-white rounded-2xl px-4 py-5 shadow-xl shadow-brand/25 flex flex-col justify-center"
           >
-            <p className="text-3xl font-extrabold leading-none">10+</p>
-            <p className="text-[11px] font-medium opacity-90 mt-1">Años transformando vidas</p>
+            <p className="text-4xl font-extrabold leading-none">10+</p>
+            <p className="text-xs font-medium opacity-90 mt-1.5 leading-snug">Años transformando vidas</p>
           </motion.div>
         </motion.div>
 

@@ -107,18 +107,20 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="relative order-1 lg:order-2"
         >
-          <PhotoPlaceholder
-            label="Foto principal — Noslen Vázquez"
-            aspectRatio="aspect-[3/4]"
-            className="w-full max-w-sm mx-auto lg:max-w-full shadow-2xl shadow-brand/10"
-          />
+          <div className="pb-6 pl-6 sm:pb-8 sm:pl-8">
+            <PhotoPlaceholder
+              label="Foto principal — Noslen Vázquez"
+              aspectRatio="aspect-[3/4]"
+              className="w-full max-w-sm mx-auto lg:max-w-full shadow-2xl shadow-brand/10"
+            />
+          </div>
 
           {/* Floating cards */}
           <motion.div
             initial={{ opacity: 0, x: 20, y: 20 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 1.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-surface rounded-2xl shadow-xl border border-theme p-3.5 flex items-center gap-3 max-w-[190px]"
+            className="absolute bottom-0 left-0 sm:bottom-1 sm:left-1 bg-surface rounded-2xl shadow-xl border border-theme p-3.5 flex items-center gap-3 max-w-[190px]"
           >
             <div className="w-9 h-9 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">
               <Sparkles size={16} className="text-brand" />
