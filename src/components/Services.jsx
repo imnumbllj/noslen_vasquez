@@ -1,75 +1,74 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Mic, Users, BookHeart, Flame, ArrowUpRight, Sparkles } from 'lucide-react'
+import { Mic, Flame, Tv, BookHeart, ArrowUpRight } from 'lucide-react'
 
+/* ── Data ─────────────────────────────────────────── */
 const services = [
   {
+    id: 'conferencias',
     icon: Mic,
     tag: 'Conferencias',
     title: 'Conferencista Motivacional',
-    desc: 'Presentaciones de alto impacto para empresas, universidades y eventos —desde el Aula Magna de la Universidad de La Habana hasta escenarios internacionales— que inspiran a través del manejo emocional, liderazgo personal y resiliencia.',
-    bullets: ['Charlas presenciales y virtuales', 'Adaptadas a tu audiencia y contexto', 'Dinámicas y altamente participativas'],
+    desc: 'Presentaciones de alto impacto para empresas, universidades y eventos que inspiran a través del manejo emocional, liderazgo personal y resiliencia. Desde el Aula Magna de la U. de La Habana hasta escenarios internacionales.',
+    bullets: ['Presenciales y virtuales', 'Adaptadas a tu audiencia', 'Altamente participativas'],
     cta: 'Invítame a tu evento',
+    featured: true,
     accent: 'green',
+    gridClass: 'lg:col-span-2 lg:row-span-2',
   },
   {
+    id: 'fenix',
     icon: Flame,
-    tag: 'Programa',
+    tag: 'Programa · 21 días',
     title: 'Círculo Fénix 🔥',
-    desc: 'Un programa de transformación de 21 días diseñado para renacer desde adentro. Herramientas de inteligencia emocional, bienestar no negociable y decisiones conscientes para ser la dueña de tu tiempo.',
-    bullets: ['21 días de transformación profunda', 'Inteligencia emocional en acción', 'Comunidad de mujeres en crecimiento'],
+    desc: 'Un programa de transformación profunda para renacer desde adentro con herramientas de inteligencia emocional.',
+    bullets: ['21 días de transformación', 'Comunidad de mujeres', 'Inteligencia emocional'],
     cta: 'Únete al Círculo',
+    featured: false,
     accent: 'orange',
+    gridClass: 'lg:col-span-2',
   },
   {
-    icon: Users,
+    id: 'peleadores',
+    icon: Tv,
     tag: 'Reality Show',
-    title: 'Peleadores Adolescentes',
-    desc: 'El primer reality show de emprendimiento adolescente en Cuba. 18 participantes compiten por mentoría, crecimiento personal y financiamiento para sus proyectos. Disponible en YouTube @gladiuscinema.',
-    bullets: ['Reality show en YouTube @gladiuscinema', '18 jóvenes emprendedores', '3 ganadores obtienen financiamiento'],
+    title: 'Peleadores Cuba',
+    desc: 'El primer reality de emprendimiento adolescente. 18 participantes, 3 ganadores con financiamiento. En YouTube @gladiuscinema.',
+    bullets: ['18 participantes', '3 ganadores con funding', '@gladiuscinema'],
     cta: 'Ver el show',
+    featured: false,
     accent: 'gold',
+    gridClass: 'lg:col-span-1',
   },
   {
+    id: 'diario',
     icon: BookHeart,
     tag: 'Producto',
-    title: 'Diario Motivacional Alma de Mujer',
-    desc: 'Una herramienta diaria diseñada para acompañarte en tu proceso de crecimiento. Reflexiones, ejercicios y afirmaciones que transforman pequeños momentos en grandes cambios.',
-    bullets: ['Reflexiones guiadas diarias', 'Ejercicios de bienestar emocional', 'Diseño premium, hecho con amor'],
+    title: 'Diario Alma de Mujer',
+    desc: 'Reflexiones diarias, ejercicios y afirmaciones que transforman pequeños momentos en grandes cambios.',
+    bullets: ['Reflexiones guiadas', 'Ejercicios emocionales', 'Diseño premium'],
     cta: 'Quiero mi diario',
+    featured: false,
     accent: 'rose',
+    gridClass: 'lg:col-span-1',
   },
 ]
 
-const accentClasses = {
-  green: {
-    badge: 'bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20',
-    icon: 'bg-green-500/10 text-green-600 dark:text-green-400',
-    bullet: 'bg-green-500',
-    link: 'text-green-600 dark:text-green-400 border-green-500/30 hover:border-green-500',
-    hover: 'hover:border-green-500/30',
-  },
-  gold: {
-    badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
-    icon: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-    bullet: 'bg-amber-500',
-    link: 'text-amber-600 dark:text-amber-400 border-amber-500/30 hover:border-amber-500',
-    hover: 'hover:border-amber-500/30',
-  },
-  rose: {
-    badge: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20',
-    icon: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
-    bullet: 'bg-rose-500',
-    link: 'text-rose-600 dark:text-rose-400 border-rose-500/30 hover:border-rose-500',
-    hover: 'hover:border-rose-500/30',
-  },
-  orange: {
-    badge: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20',
-    icon: 'bg-orange-500/10 text-orange-600 dark:text-orange-400',
-    bullet: 'bg-orange-500',
-    link: 'text-orange-600 dark:text-orange-400 border-orange-500/30 hover:border-orange-500',
-    hover: 'hover:border-orange-500/30',
-  },
+const accentMap = {
+  green:  { icon: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10', badge: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/25', bullet: 'bg-emerald-500', bar: 'from-emerald-500 to-emerald-400' },
+  orange: { icon: 'text-orange-600 dark:text-orange-400 bg-orange-500/10',   badge: 'text-orange-600 dark:text-orange-400 bg-orange-500/10 border-orange-500/25',  bullet: 'bg-orange-500',  bar: 'from-orange-500 to-amber-400'   },
+  gold:   { icon: 'text-amber-600 dark:text-amber-400 bg-amber-500/10',      badge: 'text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/25',     bullet: 'bg-amber-500',   bar: 'from-amber-500 to-yellow-400'   },
+  rose:   { icon: 'text-rose-600 dark:text-rose-400 bg-rose-500/10',         badge: 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-500/25',         bullet: 'bg-rose-500',    bar: 'from-rose-500 to-pink-400'      },
+}
+
+/* ── Component ─────────────────────────────────────── */
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+}
+const cardItem = {
+  hidden: { opacity: 0, y: 24 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 }
 
 export default function Services() {
@@ -77,98 +76,106 @@ export default function Services() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section id="servicios" ref={ref} className="section-padding bg-surface">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="servicios" ref={ref} className="section-padding bg-base relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         {/* Header */}
-        <div className="max-w-2xl mb-12 sm:mb-16">
-          <motion.span
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-12">
+          <div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              className="label mb-4"
+            >
+              Servicios
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.1, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              className="text-h1 text-primary-theme"
+            >
+              Todo lo que necesitas<br />
+              <span className="gradient-text">para crecer</span>
+            </motion.h2>
+          </div>
+          <motion.a
+            href="#contacto"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
-            className="text-xs font-bold uppercase tracking-widest text-brand"
+            transition={{ delay: 0.3 }}
+            className="btn-ghost self-start sm:self-end whitespace-nowrap"
           >
-            Servicios
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 18 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-5xl font-extrabold text-primary-theme mt-3 tracking-tight"
-          >
-            Todo lo que necesitas para crecer
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-secondary-theme mt-4 text-lg leading-relaxed"
-          >
-            Desde una conferencia que cambia perspectivas hasta un diario que transforma tu rutina.
-          </motion.p>
+            Hablemos
+            <ArrowUpRight size={15} />
+          </motion.a>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          {services.map((s, i) => {
-            const c = accentClasses[s.accent]
+        {/* Bento grid */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate={inView ? 'show' : 'hidden'}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5 auto-rows-auto"
+        >
+          {services.map((s) => {
+            const c = accentMap[s.accent]
             const Icon = s.icon
+
             return (
               <motion.div
-                key={s.title}
-                initial={{ opacity: 0, y: 28 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.15 + i * 0.1, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                className={`group card-depth rounded-2xl p-6 sm:p-7 flex flex-col gap-5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 ${c.hover}`}
+                key={s.id}
+                variants={cardItem}
+                className={`card group flex flex-col hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 overflow-hidden ${s.gridClass}`}
               >
-                <div className="flex items-start justify-between">
-                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${c.icon}`}>
-                    <Icon size={20} />
+                {/* Top accent bar */}
+                <div className={`h-0.5 bg-gradient-to-r ${c.bar} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+
+                <div className={`flex flex-col flex-1 p-6 ${s.featured ? 'sm:p-8 gap-6' : 'gap-5'}`}>
+                  {/* Icon + badge */}
+                  <div className="flex items-center justify-between">
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${c.icon}`}>
+                      <Icon size={20} />
+                    </div>
+                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border uppercase tracking-wider ${c.badge}`}>
+                      {s.tag}
+                    </span>
                   </div>
-                  <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border ${c.badge}`}>
-                    {s.tag}
-                  </span>
-                </div>
 
-                <div>
-                  <h3 className="text-base font-bold text-primary-theme mb-2 tracking-tight">{s.title}</h3>
-                  <p className="text-sm text-secondary-theme leading-relaxed">{s.desc}</p>
-                </div>
+                  {/* Text */}
+                  <div className="flex flex-col gap-2 flex-1">
+                    <h3 className={`text-primary-theme font-bold tracking-tight ${s.featured ? 'text-h3' : 'text-[15px]'}`}>
+                      {s.title}
+                    </h3>
+                    <p className={`text-secondary-theme leading-relaxed ${s.featured ? 'text-[15px]' : 'text-[13px]'}`}>
+                      {s.desc}
+                    </p>
+                  </div>
 
-                <ul className="flex flex-col gap-2">
-                  {s.bullets.map((b) => (
-                    <li key={b} className="flex items-center gap-2.5 text-sm text-secondary-theme">
-                      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${c.bullet}`} />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+                  {/* Bullets */}
+                  <ul className="flex flex-col gap-1.5">
+                    {s.bullets.map(b => (
+                      <li key={b} className="flex items-center gap-2 text-[13px] text-secondary-theme">
+                        <span className={`w-1 h-1 rounded-full flex-shrink-0 ${c.bullet}`} />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
 
-                <div className="mt-auto pt-4 border-t border-theme">
-                  <a
-                    href="#contacto"
-                    className={`inline-flex items-center gap-1.5 text-sm font-semibold border-b pb-0.5 transition-colors ${c.link}`}
-                  >
-                    {s.cta}
-                    <ArrowUpRight size={14} />
-                  </a>
+                  {/* CTA */}
+                  <div className="pt-4 border-t border-theme mt-auto">
+                    <a
+                      href="#contacto"
+                      className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary-theme hover:text-brand transition-colors group/link"
+                    >
+                      {s.cta}
+                      <ArrowUpRight size={13} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             )
           })}
-        </div>
-
-        {/* Bottom note */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.55 }}
-          className="mt-10 flex items-center justify-center gap-2 text-sm text-muted-theme"
-        >
-          <Sparkles size={15} className="text-brand" />
-          <span>
-            ¿Tienes una necesidad específica?{' '}
-            <a href="#contacto" className="text-brand font-semibold hover:underline">Conversemos</a>
-          </span>
         </motion.div>
       </div>
     </section>

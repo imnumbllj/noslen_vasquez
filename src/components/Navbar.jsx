@@ -21,63 +21,56 @@ export default function Navbar() {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Smart section scroll: works from any route
   const goToSection = (id, closeMenu) => (e) => {
     e.preventDefault()
     closeMenu?.()
-    const scroll = () => {
-      const el = document.getElementById(id)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    }
-    if (pathname === '/') {
-      scroll()
-    } else {
-      navigate('/')
-      setTimeout(scroll, 180)
-    }
+    const scroll = () => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    if (pathname === '/') scroll()
+    else { navigate('/'); setTimeout(scroll, 180) }
   }
 
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -72, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'glass shadow-sm' : 'bg-transparent'
+          scrolled ? 'glass shadow-sm border-b border-theme' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center shadow-sm">
+            <div className="w-8 h-8 rounded-xl bg-brand flex items-center justify-center shadow-sm shadow-brand/30 transition-transform group-hover:scale-105">
               <Leaf size={15} className="text-white" />
             </div>
-            <span className="font-bold text-primary-theme text-sm tracking-tight">
+            <span className="font-bold text-primary-theme text-sm tracking-tight hidden sm:block">
               Noslen <span className="text-brand">Vázquez</span>
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-0.5">
             {links.map((l) => (
               <a
                 key={l.label}
                 href={`/#${l.id}`}
                 onClick={goToSection(l.id)}
-                className="px-3 py-1.5 text-sm text-secondary-theme hover:text-primary-theme hover:bg-muted-theme rounded-lg transition-all duration-150 font-medium"
+                className="px-3.5 py-2 text-[13px] text-secondary-theme hover:text-primary-theme hover:bg-muted-theme rounded-lg transition-all duration-150 font-medium"
               >
                 {l.label}
               </a>
             ))}
             <Link
               to="/alma"
-              className="px-3 py-1.5 text-sm font-semibold text-brand hover:bg-brand/10 rounded-lg transition-all duration-150"
+              className="ml-1 px-3.5 py-2 text-[13px] font-semibold text-brand hover:bg-brand/10 rounded-lg transition-all duration-150"
             >
               Alma ✦
             </Link>
@@ -87,7 +80,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <button
               onClick={toggle}
-              className="w-9 h-9 rounded-xl bg-muted-theme flex items-center justify-center text-secondary-theme hover:text-brand transition-colors"
+              className="w-9 h-9 rounded-xl bg-muted-theme flex items-center justify-center text-muted-theme hover:text-brand hover:bg-brand/10 transition-all"
               aria-label="Toggle theme"
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -96,9 +89,9 @@ export default function Navbar() {
                   initial={{ rotate: -90, opacity: 0, scale: 0.7 }}
                   animate={{ rotate: 0, opacity: 1, scale: 1 }}
                   exit={{ rotate: 90, opacity: 0, scale: 0.7 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.18 }}
                 >
-                  {dark ? <Sun size={16} /> : <Moon size={16} />}
+                  {dark ? <Sun size={15} /> : <Moon size={15} />}
                 </motion.div>
               </AnimatePresence>
             </button>
@@ -106,7 +99,7 @@ export default function Navbar() {
             <a
               href="/#contacto"
               onClick={goToSection('contacto')}
-              className="hidden md:inline-flex items-center px-4 py-2 rounded-xl bg-brand text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm"
+              className="hidden md:inline-flex btn-primary py-2 px-5 text-[13px] rounded-xl"
             >
               Conversemos
             </a>
@@ -116,7 +109,7 @@ export default function Navbar() {
               className="md:hidden w-9 h-9 rounded-xl bg-muted-theme flex items-center justify-center text-secondary-theme"
               aria-label="Menú"
             >
-              {open ? <X size={17} /> : <Menu size={17} />}
+              {open ? <X size={16} /> : <Menu size={16} />}
             </button>
           </div>
         </div>
@@ -130,32 +123,38 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black/30 md:hidden"
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
               onClick={() => setOpen(false)}
             />
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-surface shadow-2xl md:hidden flex flex-col"
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-surface border-l border-theme shadow-2xl md:hidden flex flex-col"
             >
-              <div className="flex items-center justify-between p-5 border-b border-theme">
-                <span className="font-bold text-primary-theme">Menú</span>
+              <div className="flex items-center justify-between px-5 h-16 border-b border-theme">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-brand flex items-center justify-center">
+                    <Leaf size={13} className="text-white" />
+                  </div>
+                  <span className="font-bold text-primary-theme text-sm">Menú</span>
+                </div>
                 <button
                   onClick={() => setOpen(false)}
                   className="w-8 h-8 rounded-lg bg-muted-theme flex items-center justify-center text-secondary-theme"
                 >
-                  <X size={16} />
+                  <X size={15} />
                 </button>
               </div>
-              <nav className="flex flex-col p-4 gap-1 flex-1">
+
+              <nav className="flex flex-col p-4 gap-0.5 flex-1">
                 {links.map((l) => (
                   <a
                     key={l.label}
                     href={`/#${l.id}`}
                     onClick={goToSection(l.id, () => setOpen(false))}
-                    className="px-4 py-3 rounded-xl text-base font-medium text-primary-theme hover:bg-muted-theme transition-colors"
+                    className="px-4 py-3 rounded-xl text-[15px] font-medium text-primary-theme hover:bg-muted-theme transition-colors"
                   >
                     {l.label}
                   </a>
@@ -163,16 +162,17 @@ export default function Navbar() {
                 <Link
                   to="/alma"
                   onClick={() => setOpen(false)}
-                  className="px-4 py-3 rounded-xl text-base font-semibold text-brand hover:bg-brand/10 transition-colors"
+                  className="px-4 py-3 rounded-xl text-[15px] font-semibold text-brand hover:bg-brand/10 transition-colors"
                 >
                   Alma ✦
                 </Link>
               </nav>
+
               <div className="p-4 border-t border-theme">
                 <a
                   href="/#contacto"
                   onClick={goToSection('contacto', () => setOpen(false))}
-                  className="block w-full py-3 text-center font-semibold bg-brand text-white rounded-xl hover:opacity-90 transition-opacity"
+                  className="btn-primary w-full justify-center"
                 >
                   Conversemos
                 </a>

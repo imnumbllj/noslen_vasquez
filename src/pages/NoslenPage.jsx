@@ -15,8 +15,8 @@ export default function NoslenPage() {
       <main>
         <Hero />
         <About />
-        <Stats />
         <Services />
+        <Stats />
         <AlmaTeaser />
         <Testimonials />
         <Contact />
