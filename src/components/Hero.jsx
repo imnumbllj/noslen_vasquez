@@ -36,7 +36,7 @@ export default function Hero() {
       </div>
 
       {/* ── Layout ── */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full pt-28 pb-24 lg:pt-36 lg:pb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full pt-28 pb-12 lg:pt-36 lg:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
         {/* TEXT */}
         <motion.div
@@ -112,7 +112,7 @@ export default function Hero() {
             <img
               src="/images/noslen-hero.jpg"
               alt="Noslen Vázquez en Circuito Networking Cuba"
-              className="w-full max-w-sm mx-auto lg:max-w-full rounded-2xl shadow-2xl shadow-black/20 object-cover object-top aspect-[3/4]"
+              className="w-full max-w-sm mx-auto lg:max-w-full rounded-2xl shadow-2xl shadow-black/20 object-cover object-[center_20%] aspect-[3/4]"
               style={{ filter: 'brightness(1.02) contrast(1.04) saturate(1.05)' }}
             />
 
