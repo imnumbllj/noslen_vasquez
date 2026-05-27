@@ -88,7 +88,7 @@ export default function Stats() {
                 <p className="text-xs text-muted-theme mt-1 leading-snug">{m.sub}</p>
               </div>
               {/* Hover accent bar */}
-              <div className="h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-brand to-gold transition-all duration-500 rounded-full mt-auto" />
+              <div className="h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-emerald-500 to-amber-400 transition-all duration-500 rounded-full mt-auto" />
             </motion.div>
           ))}
         </motion.div>
@@ -100,7 +100,7 @@ export default function Stats() {
           transition={{ delay: 0.6, duration: 0.6 }}
           className="mt-10 relative card overflow-hidden p-7 sm:p-8 text-center"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-brand/5 via-gold/5 to-brand/5" />
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-amber-400/5 to-emerald-500/5" />
           <p className="relative text-lg sm:text-xl font-semibold text-primary-theme italic">
             "Si lo sueñas lo creas, si lo crees lo logras."
           </p>
