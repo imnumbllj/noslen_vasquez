@@ -51,13 +51,13 @@ export default function About() {
           {/* ── Photo — tall, spans 2 rows on desktop ── */}
           <motion.div
             variants={item}
-            className="card overflow-hidden lg:row-span-2 min-h-[300px] lg:min-h-0"
+            className="card overflow-hidden relative lg:row-span-2 min-h-[340px] lg:min-h-[460px]"
           >
             <img
               src="/images/noslen-reading.jpg"
               alt="Noslen Vázquez"
-              className="w-full h-full object-cover object-center"
-              style={{ minHeight: '300px', filter: 'brightness(1.01) contrast(1.03) saturate(1.04)' }}
+              className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
+              style={{ filter: 'brightness(1.01) contrast(1.03) saturate(1.04)' }}
             />
           </motion.div>
 
@@ -124,7 +124,7 @@ export default function About() {
           {/* ── Alma photo card ── */}
           <motion.div
             variants={item}
-            className="card overflow-hidden relative min-h-[200px]"
+            className="card overflow-hidden relative min-h-[240px]"
           >
             <img
               src="/images/noslen-alma.jpg"
