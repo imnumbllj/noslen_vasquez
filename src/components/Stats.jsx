@@ -90,24 +90,6 @@ const CustomTooltip = ({ active, payload }) => {
   return null
 }
 
-// Animated dot on the radar line
-const AnimatedRadarDot = (props) => {
-  const { cx, cy, index } = props
-  return (
-    <motion.circle
-      key={`dot-${index}`}
-      cx={cx}
-      cy={cy}
-      r={4}
-      fill="rgb(var(--brand))"
-      stroke="rgb(var(--bg-surface))"
-      strokeWidth={2}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 0.8 + index * 0.07, duration: 0.3, ease: 'backOut' }}
-    />
-  )
-}
 
 export default function Stats() {
   const ref = useRef(null)
@@ -208,7 +190,7 @@ export default function Stats() {
                   fillOpacity={0.18}
                   strokeWidth={2}
                   isAnimationActive={false}
-                  dot={<AnimatedRadarDot />}
+                  dot={{ fill: 'rgb(var(--brand))', r: 4, strokeWidth: 2, stroke: 'rgb(var(--bg-surface))' }}
                 />
               </RadarChart>
             </ResponsiveContainer>
