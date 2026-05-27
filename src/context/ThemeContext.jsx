@@ -3,15 +3,12 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const ThemeContext = createContext()
 
 export function ThemeProvider({ children }) {
-  const [dark, setDark] = useState(() => {
-    const stored = localStorage.getItem('theme')
-    if (stored) return stored === 'dark'
-    return true
-  })
+  // Always start dark — "siempre abra en modo oscuro"
+  // User can toggle for the session but next load resets to dark
+  const [dark, setDark] = useState(true)
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
-    localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
 
   return (
