@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Sun, Moon, Menu, X, Leaf } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 
 const links = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Sobre mí', href: '#sobre-mi' },
   { label: 'Servicios', href: '#servicios' },
-  { label: 'Alma', href: '#alma' },
+  { label: 'Impacto', href: '#impacto' },
+  { label: 'Testimonios', href: '#testimonios' },
   { label: 'Contacto', href: '#contacto' },
 ]
 
 export default function Navbar() {
+  const { dark, toggle } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -25,86 +29,136 @@ export default function Navbar() {
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-white/90 backdrop-blur-md border-b border-zinc-200/80 shadow-sm'
-            : 'bg-transparent'
+          scrolled ? 'glass shadow-sm' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center shadow-sm">
-              <span className="text-white text-xs font-bold tracking-wide">NV</span>
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center shadow-sm">
+              <Leaf size={15} className="text-white" />
             </div>
-            <span className="font-semibold text-zinc-900 text-sm tracking-tight">Noslen Vázquez</span>
-          </a>
+            <span className="font-bold text-primary-theme text-sm tracking-tight">
+              Noslen <span className="text-brand">Vázquez</span>
+            </span>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
             {links.map((l) => (
               <a
-                key={l.href}
+                key={l.label}
                 href={l.href}
-                className="px-3 py-1.5 text-sm text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-md transition-colors duration-150 font-medium"
+                className="px-3 py-1.5 text-sm text-secondary-theme hover:text-primary-theme hover:bg-muted-theme rounded-lg transition-all duration-150 font-medium"
               >
                 {l.label}
               </a>
             ))}
+            <Link
+              to="/alma"
+              className="px-3 py-1.5 text-sm font-semibold text-brand hover:bg-brand/10 rounded-lg transition-all duration-150"
+            >
+              Alma ✦
+            </Link>
           </nav>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Right actions */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggle}
+              className="w-9 h-9 rounded-xl bg-muted-theme flex items-center justify-center text-secondary-theme hover:text-brand transition-colors"
+              aria-label="Toggle theme"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={dark ? 'sun' : 'moon'}
+                  initial={{ rotate: -90, opacity: 0, scale: 0.7 }}
+                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                  exit={{ rotate: 90, opacity: 0, scale: 0.7 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {dark ? <Sun size={16} /> : <Moon size={16} />}
+                </motion.div>
+              </AnimatePresence>
+            </button>
+
             <a
               href="#contacto"
-              className="px-4 py-2 text-sm font-semibold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors duration-150 shadow-sm"
+              className="hidden md:inline-flex items-center px-4 py-2 rounded-xl bg-brand text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm"
             >
-              Trabajemos juntos
+              Conversemos
             </a>
-          </div>
 
-          {/* Mobile burger */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-md hover:bg-zinc-100 transition-colors"
-            aria-label="Menú"
-          >
-            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            <button
+              onClick={() => setOpen(o => !o)}
+              className="md:hidden w-9 h-9 rounded-xl bg-muted-theme flex items-center justify-center text-secondary-theme"
+              aria-label="Menú"
+            >
+              {open ? <X size={17} /> : <Menu size={17} />}
+            </button>
+          </div>
         </div>
       </motion.header>
 
-      {/* Mobile menu */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-white pt-16"
-          >
-            <nav className="flex flex-col p-6 gap-2">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-black/30 md:hidden"
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-surface shadow-2xl md:hidden flex flex-col"
+            >
+              <div className="flex items-center justify-between p-5 border-b border-theme">
+                <span className="font-bold text-primary-theme">Menú</span>
+                <button
                   onClick={() => setOpen(false)}
-                  className="px-4 py-3 text-lg font-medium text-zinc-800 hover:bg-zinc-50 rounded-xl transition-colors"
+                  className="w-8 h-8 rounded-lg bg-muted-theme flex items-center justify-center text-secondary-theme"
                 >
-                  {l.label}
+                  <X size={16} />
+                </button>
+              </div>
+              <nav className="flex flex-col p-4 gap-1 flex-1">
+                {links.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className="px-4 py-3 rounded-xl text-base font-medium text-primary-theme hover:bg-muted-theme transition-colors"
+                  >
+                    {l.label}
+                  </a>
+                ))}
+                <Link
+                  to="/alma"
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-3 rounded-xl text-base font-semibold text-brand hover:bg-brand/10 transition-colors"
+                >
+                  Alma ✦
+                </Link>
+              </nav>
+              <div className="p-4 border-t border-theme">
+                <a
+                  href="#contacto"
+                  onClick={() => setOpen(false)}
+                  className="block w-full py-3 text-center font-semibold bg-brand text-white rounded-xl hover:opacity-90 transition-opacity"
+                >
+                  Conversemos
                 </a>
-              ))}
-              <a
-                href="#contacto"
-                onClick={() => setOpen(false)}
-                className="mt-4 px-4 py-3 text-center font-semibold bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors"
-              >
-                Trabajemos juntos
-              </a>
-            </nav>
-          </motion.div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

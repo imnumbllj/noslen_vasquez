@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Mail, Send, MapPin, MessageCircle } from 'lucide-react'
+import { Send, MapPin, MessageCircle } from 'lucide-react'
 
 const InstagramIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -14,12 +14,9 @@ const FacebookIcon = () => (
   </svg>
 )
 
-const reasons = [
-  'Invitación a conferencia',
-  'Taller o programa grupal',
-  'Diario Motivacional',
-  'Otro',
-]
+const reasons = ['Invitación a conferencia', 'Taller o programa grupal', 'Diario Motivacional', 'Otro']
+
+const inputClass = 'w-full px-4 py-3 text-sm bg-muted-theme text-primary-theme border border-theme rounded-xl outline-none focus:ring-2 focus:ring-brand/25 focus:border-brand transition-all placeholder:text-muted-theme'
 
 export default function Contact() {
   const ref = useRef(null)
@@ -27,92 +24,64 @@ export default function Contact() {
   const [selected, setSelected] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSubmitted(true)
-  }
-
   return (
-    <section id="contacto" ref={ref} className="py-28 bg-[#FAFAF8]">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Left — Info */}
+    <section id="contacto" ref={ref} className="section-padding bg-surface">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+
+          {/* Left — info */}
           <div className="flex flex-col gap-8">
             <div>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
-                className="text-xs font-bold uppercase tracking-widest text-emerald-600"
+                className="text-xs font-bold uppercase tracking-widest text-brand"
               >
                 Contacto
               </motion.span>
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl md:text-5xl font-extrabold text-zinc-900 mt-3 tracking-tight text-balance"
+                className="text-4xl md:text-5xl font-extrabold text-primary-theme mt-3 tracking-tight"
               >
-                Hablemos y hagamos algo grande juntas
+                Hablemos y hagamos algo grande
               </motion.h2>
               <motion.p
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.2 }}
-                className="text-zinc-500 text-lg leading-relaxed mt-4"
+                className="text-secondary-theme text-lg leading-relaxed mt-4"
               >
-                Ya sea que quieras invitarme a tu evento, participar en un taller o simplemente preguntar por el diario — escríbeme y te respondo personalmente.
+                Ya sea que quieras invitarme a tu evento, participar en un taller o preguntar por el diario — escríbeme y te respondo personalmente.
               </motion.p>
             </div>
 
-            {/* Contact cards */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.3 }}
               className="flex flex-col gap-3"
             >
               {[
-                {
-                  icon: InstagramIcon,
-                  label: 'Instagram',
-                  value: '@noslen_vazquez',
-                  href: 'https://www.instagram.com/noslen_vazquez',
-                  color: 'bg-gradient-to-br from-purple-500 to-rose-500',
-                },
-                {
-                  icon: FacebookIcon,
-                  label: 'Facebook',
-                  value: 'Noslen Vázquez',
-                  href: 'https://www.facebook.com/noslen.vazquez.9',
-                  color: 'bg-blue-600',
-                },
-                {
-                  icon: MessageCircle,
-                  label: 'WhatsApp',
-                  value: 'Escríbeme directo',
-                  href: '#',
-                  color: 'bg-green-500',
-                },
-                {
-                  icon: MapPin,
-                  label: 'Ubicación',
-                  value: 'Cuba · Internacional',
-                  href: null,
-                  color: 'bg-zinc-700',
-                },
-              ].map(({ icon: Icon, label, value, href, color }) => (
-                <div key={label} className="flex items-center gap-4 p-4 bg-white border border-zinc-200 rounded-xl hover:border-zinc-300 hover:shadow-sm transition-all">
-                  <div className={`w-10 h-10 rounded-xl ${color} flex items-center justify-center flex-shrink-0`}>
-                    <Icon className="w-4 h-4 text-white" />
+                { icon: InstagramIcon, label: 'Instagram', value: '@noslen_vazquez', href: 'https://www.instagram.com/noslen_vazquez', bg: 'bg-gradient-to-br from-purple-500 to-rose-500' },
+                { icon: FacebookIcon, label: 'Facebook', value: 'Noslen Vázquez', href: 'https://www.facebook.com/noslen.vazquez.9', bg: 'bg-blue-600' },
+                { icon: MessageCircle, label: 'WhatsApp', value: 'Escríbeme directo', href: '#', bg: 'bg-green-500' },
+                { icon: MapPin, label: 'Ubicación', value: 'Cuba · Internacional', href: null, bg: 'bg-muted-theme' },
+              ].map(({ icon: Icon, label, value, href, bg }) => (
+                <div key={label} className="flex items-center gap-4 p-4 bg-base border border-theme rounded-xl hover:border-brand/30 transition-all">
+                  <div className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center flex-shrink-0 text-white`}>
+                    <Icon />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-zinc-400 font-medium">{label}</p>
+                    <p className="text-xs text-muted-theme font-medium">{label}</p>
                     {href ? (
-                      <a href={href} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-zinc-800 hover:text-emerald-600 transition-colors truncate block">
+                      <a href={href} target={href !== '#' ? '_blank' : undefined} rel="noopener noreferrer"
+                        className="text-sm font-semibold text-primary-theme hover:text-brand transition-colors truncate block">
                         {value}
                       </a>
                     ) : (
-                      <p className="text-sm font-semibold text-zinc-800">{value}</p>
+                      <p className="text-sm font-semibold text-primary-theme">{value}</p>
                     )}
                   </div>
                 </div>
@@ -120,59 +89,50 @@ export default function Contact() {
             </motion.div>
           </div>
 
-          {/* Right — Form */}
+          {/* Right — form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.25, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             {submitted ? (
-              <div className="h-full flex flex-col items-center justify-center text-center gap-6 bg-white border border-zinc-200 rounded-2xl p-12">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center">
-                  <Send className="w-7 h-7 text-emerald-600" />
-                </div>
+              <div className="h-full flex flex-col items-center justify-center text-center gap-5 bg-base border border-theme rounded-2xl p-10 sm:p-12">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+                  className="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center"
+                >
+                  <Send size={26} className="text-brand" />
+                </motion.div>
                 <div>
-                  <h3 className="text-2xl font-bold text-zinc-900">¡Mensaje enviado!</h3>
-                  <p className="text-zinc-500 mt-2">Gracias por escribirme. Te respondo en las próximas 24 horas.</p>
+                  <h3 className="text-2xl font-bold text-primary-theme">¡Mensaje enviado!</h3>
+                  <p className="text-secondary-theme mt-2">Gracias por escribirme. Te respondo en menos de 24 horas.</p>
                 </div>
               </div>
             ) : (
               <form
-                onSubmit={handleSubmit}
-                className="bg-white border border-zinc-200 rounded-2xl p-8 flex flex-col gap-5 shadow-sm"
+                onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }}
+                className="bg-base border border-theme rounded-2xl p-6 sm:p-8 flex flex-col gap-5"
               >
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-zinc-700">Nombre</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Tu nombre"
-                      className="px-3.5 py-2.5 text-sm bg-zinc-50 border border-zinc-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-400 transition-all placeholder:text-zinc-400"
-                    />
+                    <label className="text-xs font-semibold text-primary-theme">Nombre</label>
+                    <input type="text" required placeholder="Tu nombre" className={inputClass} />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-zinc-700">Apellido</label>
-                    <input
-                      type="text"
-                      placeholder="Tu apellido"
-                      className="px-3.5 py-2.5 text-sm bg-zinc-50 border border-zinc-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-400 transition-all placeholder:text-zinc-400"
-                    />
+                    <label className="text-xs font-semibold text-primary-theme">Apellido</label>
+                    <input type="text" placeholder="Tu apellido" className={inputClass} />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-zinc-700">Email</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="tu@email.com"
-                    className="px-3.5 py-2.5 text-sm bg-zinc-50 border border-zinc-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-400 transition-all placeholder:text-zinc-400"
-                  />
+                  <label className="text-xs font-semibold text-primary-theme">Email</label>
+                  <input type="email" required placeholder="tu@email.com" className={inputClass} />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-semibold text-zinc-700">¿En qué puedo ayudarte?</label>
+                  <label className="text-xs font-semibold text-primary-theme">¿En qué puedo ayudarte?</label>
                   <div className="grid grid-cols-2 gap-2">
                     {reasons.map((r) => (
                       <button
@@ -181,8 +141,8 @@ export default function Contact() {
                         onClick={() => setSelected(r)}
                         className={`px-3 py-2.5 text-xs font-semibold rounded-xl border transition-all text-left ${
                           selected === r
-                            ? 'bg-emerald-50 border-emerald-400 text-emerald-700'
-                            : 'bg-zinc-50 border-zinc-200 text-zinc-600 hover:border-zinc-300'
+                            ? 'bg-brand/10 border-brand/40 text-brand'
+                            : 'bg-muted-theme border-theme text-secondary-theme hover:border-brand/30'
                         }`}
                       >
                         {r}
@@ -192,24 +152,24 @@ export default function Contact() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-zinc-700">Mensaje</label>
+                  <label className="text-xs font-semibold text-primary-theme">Mensaje</label>
                   <textarea
                     required
                     rows={4}
                     placeholder="Cuéntame más sobre lo que necesitas..."
-                    className="px-3.5 py-2.5 text-sm bg-zinc-50 border border-zinc-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-400 transition-all resize-none placeholder:text-zinc-400"
+                    className={`${inputClass} resize-none`}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="group flex items-center justify-center gap-2 px-6 py-3.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-all duration-200 text-sm shadow-md hover:shadow-emerald-200 hover:shadow-lg"
+                  className="group flex items-center justify-center gap-2 px-6 py-3.5 bg-brand text-white font-semibold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-brand/20 text-sm"
                 >
                   Enviar mensaje
-                  <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <Send size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </button>
 
-                <p className="text-xs text-zinc-400 text-center">
+                <p className="text-xs text-muted-theme text-center">
                   Tu información es privada. Respondo en menos de 24 horas.
                 </p>
               </form>

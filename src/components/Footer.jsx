@@ -1,4 +1,5 @@
-import { Heart } from 'lucide-react'
+import { Heart, Leaf } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const InstagramIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -12,72 +13,76 @@ const FacebookIcon = () => (
   </svg>
 )
 
-const links = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Sobre mí', href: '#sobre-mi' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Alma', href: '#alma' },
-  { label: 'Diario', href: '#diario' },
-  { label: 'Contacto', href: '#contacto' },
-]
-
 export default function Footer() {
   return (
-    <footer className="bg-zinc-950 text-white py-14">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10 pb-10 border-b border-white/10">
+    <footer className="bg-[#080e0b] text-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="flex flex-col sm:flex-row items-start justify-between gap-10 pb-10 border-b border-white/10">
+
           {/* Brand */}
-          <div className="flex flex-col gap-3 max-w-xs">
+          <div className="flex flex-col gap-4 max-w-xs">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center">
-                <span className="text-white text-xs font-bold">NV</span>
+              <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center">
+                <Leaf size={15} className="text-white" />
               </div>
               <span className="font-bold text-white tracking-tight">Noslen Vázquez</span>
             </div>
-            <p className="text-sm text-zinc-400 leading-relaxed">
-              Conferencista Motivacional Cubana. CEO de Alma Crecimiento. <strong className="text-zinc-300">Ser felices, no perfectas.</strong>
+            <p className="text-sm text-white/50 leading-relaxed">
+              Conferencista Motivacional Cubana. CEO de{' '}
+              <Link to="/alma" className="text-brand hover:underline font-medium">Alma Crecimiento</Link>.{' '}
+              <em className="text-white/70">Ser felices, no perfectas.</em>
             </p>
-            <div className="flex gap-3 mt-1">
-              <a
-                href="https://www.instagram.com/noslen_vazquez"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                aria-label="Instagram"
-              >
-                <InstagramIcon />
-              </a>
-              <a
-                href="https://www.facebook.com/noslen.vazquez.9"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                aria-label="Facebook"
-              >
-                <FacebookIcon />
-              </a>
+            <div className="flex gap-2">
+              {[
+                { href: 'https://www.instagram.com/noslen_vazquez', icon: InstagramIcon, label: 'Instagram' },
+                { href: 'https://www.facebook.com/noslen.vazquez.9', icon: FacebookIcon, label: 'Facebook' },
+              ].map(({ href, icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 rounded-xl bg-white/10 hover:bg-brand/30 flex items-center justify-center transition-colors"
+                >
+                  <Icon />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Nav */}
-          <nav className="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-2">
-            {links.map((l) => (
+          {/* Links */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-2">
+            {[
+              { label: 'Inicio', href: '#inicio' },
+              { label: 'Sobre mí', href: '#sobre-mi' },
+              { label: 'Servicios', href: '#servicios' },
+              { label: 'Impacto', href: '#impacto' },
+              { label: 'Testimonios', href: '#testimonios' },
+              { label: 'Contacto', href: '#contacto' },
+            ].map((l) => (
               <a
-                key={l.href}
+                key={l.label}
                 href={l.href}
-                className="text-sm text-zinc-400 hover:text-white transition-colors font-medium"
+                className="text-sm text-white/50 hover:text-white transition-colors font-medium"
               >
                 {l.label}
               </a>
             ))}
-          </nav>
+            <Link
+              to="/alma"
+              className="text-sm text-brand hover:text-brand/80 transition-colors font-semibold"
+            >
+              Alma ✦
+            </Link>
+          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 text-xs text-zinc-500">
+        {/* Bottom */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 text-xs text-white/30">
           <p>© {new Date().getFullYear()} Noslen Vázquez · Todos los derechos reservados</p>
           <p className="flex items-center gap-1.5">
-            Hecho con <Heart className="w-3 h-3 text-rose-400 fill-rose-400" /> para transformar vidas
+            Hecho con <Heart size={11} className="fill-rose-400 text-rose-400" /> para transformar vidas
           </p>
         </div>
       </div>

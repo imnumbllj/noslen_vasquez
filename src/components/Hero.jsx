@@ -1,154 +1,163 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles, Mic } from 'lucide-react'
+import { ArrowRight, Mic, Sparkles, ExternalLink } from 'lucide-react'
 import PhotoPlaceholder from './PhotoPlaceholder'
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] },
-  }),
-}
+const fadeUp = (delay = 0) => ({
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] } },
+})
 
 export default function Hero() {
   return (
-    <section
-      id="inicio"
-      className="relative min-h-screen flex items-center pt-16 overflow-hidden bg-[#FAFAF8]"
-    >
-      {/* Background subtle gradient */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-100/40 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-50/60 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
+    <section id="inicio" className="relative min-h-screen flex items-center pt-16 overflow-hidden bg-base">
+      {/* Background orbs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full bg-brand/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-gold/5 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-brand/[0.03] blur-3xl" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-6 w-full py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Left — Text */}
-        <div className="flex flex-col gap-6">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* ── Text ── */}
+        <div className="flex flex-col gap-6 order-2 lg:order-1">
           {/* Badge */}
-          <motion.div variants={fadeUp} initial="hidden" animate="show" custom={0}>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider">
-              <Mic className="w-3 h-3" />
-              Conferencista Motivacional Cubana
+          <motion.div variants={fadeUp(0)} initial="hidden" animate="show">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/10 border border-brand/20 text-brand text-xs font-semibold uppercase tracking-wider">
+              <Mic size={12} />
+              Conferencista Motivacional · Cuba & Internacional
             </span>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
-            variants={fadeUp}
+            variants={fadeUp(0.1)}
             initial="hidden"
             animate="show"
-            custom={1}
-            className="text-5xl md:text-6xl xl:text-7xl font-extrabold text-zinc-900 leading-[1.05] tracking-tight text-balance"
+            className="text-5xl md:text-6xl xl:text-7xl font-extrabold text-primary-theme leading-[1.05] tracking-tight"
           >
             Domina tus emociones.{' '}
             <span className="relative inline-block">
-              <span className="relative z-10 text-emerald-600">Sé feliz.</span>
+              <span className="gradient-text">Sé feliz.</span>
               <motion.span
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ delay: 0.9, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute bottom-1 left-0 right-0 h-3 bg-emerald-100 -z-0 origin-left"
+                transition={{ delay: 0.9, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-brand/40 origin-left"
               />
             </span>
           </motion.h1>
 
           {/* Sub */}
           <motion.p
-            variants={fadeUp}
+            variants={fadeUp(0.2)}
             initial="hidden"
             animate="show"
-            custom={2}
-            className="text-lg text-zinc-500 max-w-lg leading-relaxed"
+            className="text-lg text-secondary-theme max-w-lg leading-relaxed"
           >
-            Te ayudo a convertir el estrés en claridad, las emociones en fortaleza y cada día en una decisión consciente de vivir mejor. <strong className="text-zinc-700 font-semibold">Ser felices, no perfectas.</strong>
+            Te ayudo a convertir el estrés en claridad, las emociones en fortaleza y cada día en una decisión consciente de vivir mejor.{' '}
+            <strong className="text-primary-theme font-semibold">Ser felices, no perfectas.</strong>
           </motion.p>
 
           {/* CTAs */}
           <motion.div
-            variants={fadeUp}
+            variants={fadeUp(0.3)}
             initial="hidden"
             animate="show"
-            custom={3}
-            className="flex flex-col sm:flex-row gap-3 pt-2"
+            className="flex flex-col sm:flex-row gap-3"
           >
             <a
               href="#contacto"
-              className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-all duration-200 shadow-md hover:shadow-emerald-200 hover:shadow-lg text-sm"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-brand text-white font-semibold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-brand/20 text-sm"
             >
               Trabajemos juntos
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </a>
             <a
               href="#sobre-mi"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-zinc-700 font-semibold rounded-xl border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 transition-all duration-200 text-sm"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-surface text-primary-theme font-semibold rounded-xl border border-theme hover:bg-muted-theme transition-all text-sm"
             >
               Conoce mi historia
             </a>
           </motion.div>
 
-          {/* Social proof strip */}
+          {/* Stats strip */}
           <motion.div
-            variants={fadeUp}
+            variants={fadeUp(0.4)}
             initial="hidden"
             animate="show"
-            custom={4}
-            className="flex items-center gap-6 pt-4 border-t border-zinc-100"
+            className="flex items-center gap-8 pt-4 border-t border-theme"
           >
             {[
               { value: '10+', label: 'Años de experiencia' },
               { value: '500+', label: 'Vidas transformadas' },
               { value: '3', label: 'Países alcanzados' },
             ].map((s) => (
-              <div key={s.label} className="flex flex-col">
-                <span className="text-2xl font-bold text-zinc-900 tracking-tight">{s.value}</span>
-                <span className="text-xs text-zinc-400 font-medium">{s.label}</span>
+              <div key={s.label}>
+                <span className="text-2xl font-bold text-primary-theme tracking-tight">{s.value}</span>
+                <p className="text-xs text-muted-theme font-medium mt-0.5">{s.label}</p>
               </div>
             ))}
           </motion.div>
         </div>
 
-        {/* Right — Photo */}
+        {/* ── Photo ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 20 }}
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative"
+          transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="relative order-1 lg:order-2"
         >
           <PhotoPlaceholder
             label="Foto principal — Noslen Vázquez"
             aspectRatio="aspect-[3/4]"
-            className="w-full max-w-md mx-auto shadow-2xl shadow-emerald-100"
+            className="w-full max-w-sm mx-auto lg:max-w-full shadow-2xl shadow-brand/10"
           />
 
-          {/* Floating card */}
+          {/* Floating cards */}
           <motion.div
             initial={{ opacity: 0, x: 20, y: 20 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 1.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl border border-zinc-100 p-4 flex items-center gap-3 max-w-[200px]"
+            className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-surface rounded-2xl shadow-xl border border-theme p-3.5 flex items-center gap-3 max-w-[190px]"
           >
-            <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
-              <Sparkles className="w-5 h-5 text-emerald-600" />
+            <div className="w-9 h-9 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">
+              <Sparkles size={16} className="text-brand" />
             </div>
             <div>
-              <p className="text-xs font-bold text-zinc-800">CEO & Fundadora</p>
-              <p className="text-xs text-emerald-600 font-semibold">Alma Crecimiento</p>
+              <p className="text-xs font-bold text-primary-theme leading-tight">CEO & Fundadora</p>
+              <p className="text-xs text-brand font-semibold mt-0.5">Alma Crecimiento</p>
             </div>
           </motion.div>
 
-          {/* Top tag */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -20, y: -10 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 1.3, duration: 0.5 }}
-            className="absolute -top-4 -right-4 bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg"
+            className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 bg-brand text-white text-[11px] font-bold px-3.5 py-2 rounded-full shadow-lg shadow-brand/30"
           >
-            🇨🇺 Conferencista Internacional
+            🇨🇺 Internacional
           </motion.div>
+
+          {/* Decorative ring */}
+          <div className="absolute inset-0 rounded-2xl ring-1 ring-brand/10 pointer-events-none" />
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8, duration: 0.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="w-5 h-8 rounded-full border-2 border-theme flex items-start justify-center pt-1.5"
+        >
+          <div className="w-1 h-2 rounded-full bg-brand" />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }
