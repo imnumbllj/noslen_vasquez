@@ -1,4 +1,4 @@
-import { Heart, Leaf, MessageCircle } from 'lucide-react'
+import { Heart, Leaf, MessageCircle, Mail } from 'lucide-react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 const InstagramIcon = () => (
@@ -38,15 +38,18 @@ export default function Footer() {
               <span className="font-bold text-white tracking-tight">Noslen Vázquez</span>
             </div>
             <p className="text-sm text-white/50 leading-relaxed">
-              Conferencista Motivacional Cubana. CEO de{' '}
-              <Link to="/alma" className="text-brand hover:underline font-medium">Alma Crecimiento</Link>.{' '}
-              <em className="text-white/70">Ser felices, no perfectas.</em>
+              Conferencista Motivacional · Asesora Emocional · CEO de{' '}
+              <Link to="/alma" className="text-brand hover:underline font-medium">Alma Crecimiento</Link>.
+            </p>
+            <p className="text-sm text-white/30 italic mt-1">
+              "Sé feliz, no perfecta."
             </p>
             <div className="flex gap-2">
               {[
+                { href: 'mailto:noslenvazquez@capibario.com', icon: Mail, label: 'Email' },
+                { href: 'https://wa.me/5352839729', icon: MessageCircle, label: 'WhatsApp' },
                 { href: 'https://www.instagram.com/noslen_vazquez', icon: InstagramIcon, label: 'Instagram' },
                 { href: 'https://www.facebook.com/noslen.vazquez.9', icon: FacebookIcon, label: 'Facebook' },
-                { href: 'https://wa.me/5352839729', icon: MessageCircle, label: 'WhatsApp' },
               ].map(({ href, icon: Icon, label }) => (
                 <a
                   key={label}

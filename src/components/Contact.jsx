@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Send, MapPin, MessageCircle, CheckCircle2, ArrowUpRight } from 'lucide-react'
+import { Send, MapPin, MessageCircle, CheckCircle2, ArrowUpRight, Mail } from 'lucide-react'
 
 const IgIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -13,7 +13,7 @@ const FbIcon = () => (
   </svg>
 )
 
-const reasons = ['Invitación a conferencia', 'Círculo Fénix', 'Diario Motivacional', 'Otro']
+const reasons = ['Raíz Propia (Coaching Individual)', 'Raíz Común (Empresarial)', 'Conferencia', 'Círculo Fénix', 'Otro']
 
 const inputCls = 'w-full px-4 py-3 text-sm bg-muted-theme text-primary-theme border border-theme rounded-xl outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand/50 transition-all placeholder:text-muted-theme'
 
@@ -69,6 +69,20 @@ export default function Contact() {
           >
             {[
               {
+                icon: Mail,
+                label: 'Email',
+                value: 'noslenvazquez@capibario.com',
+                href: 'mailto:noslenvazquez@capibario.com',
+                bg: 'bg-brand',
+              },
+              {
+                icon: MessageCircle,
+                label: 'WhatsApp',
+                value: '+53 52839729',
+                href: 'https://wa.me/5352839729',
+                bg: 'bg-green-500',
+              },
+              {
                 icon: IgIcon,
                 label: 'Instagram',
                 value: '@noslen_vazquez',
@@ -81,13 +95,6 @@ export default function Contact() {
                 value: 'Noslen Vázquez',
                 href: 'https://www.facebook.com/noslen.vazquez.9',
                 bg: 'bg-blue-600',
-              },
-              {
-                icon: MessageCircle,
-                label: 'WhatsApp',
-                value: '+53 52839729',
-                href: 'https://wa.me/5352839729',
-                bg: 'bg-green-500',
               },
               {
                 icon: MapPin,
@@ -169,7 +176,7 @@ export default function Contact() {
 
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-semibold text-primary-theme">¿En qué puedo ayudarte?</label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {reasons.map((r) => (
                       <button
                         key={r}

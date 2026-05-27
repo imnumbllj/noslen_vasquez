@@ -57,15 +57,13 @@ export default function Hero() {
 
           {/* Headline */}
           <motion.h1 variants={item} className="text-display text-primary-theme text-balance">
-            Domina tus<br />
-            <span className="gradient-text">emociones.</span>
-            <br />
-            <span style={{ opacity: 0.45 }}>Sé feliz.</span>
+            <span className="gradient-text">Sé feliz,</span><br />
+            no perfecta.
           </motion.h1>
 
           {/* Sub */}
           <motion.p variants={item} className="text-lead text-secondary-theme max-w-md">
-            Te ayudo a convertir el estrés en claridad, las emociones en fortaleza y cada día en una decisión consciente de vivir mejor.
+            Porque tu historia no se guarda — se construye. Acompaño a personas en su transformación emocional, personal y profesional.
           </motion.p>
 
           {/* CTAs */}
