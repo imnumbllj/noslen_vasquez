@@ -13,7 +13,7 @@ const stats = [
   { value: 17, suffix: '', label: 'Peleadores Adolescentes', desc: 'En el programa inaugural 2025' },
 ]
 
-const radarData = [
+const TARGET_DATA = [
   { area: 'Conferencias', value: 95 },
   { area: 'Talleres', value: 88 },
   { area: 'Bienestar', value: 92 },
@@ -22,23 +22,61 @@ const radarData = [
   { area: 'Empresas', value: 72 },
 ]
 
+const ZERO_DATA = TARGET_DATA.map(d => ({ ...d, value: 0 }))
+
 function Counter({ target, suffix, inView }) {
   const [count, setCount] = useState(0)
-
   useEffect(() => {
     if (!inView) return
     let start = 0
-    const duration = 1600
-    const step = Math.ceil(duration / target)
     const timer = setInterval(() => {
-      start += Math.ceil(target / (duration / 16))
+      start += Math.ceil(target / (1600 / 16))
       if (start >= target) { setCount(target); clearInterval(timer) }
       else setCount(start)
     }, 16)
     return () => clearInterval(timer)
   }, [inView, target])
-
   return <span>{count}{suffix}</span>
+}
+
+function useAnimatedRadarData(inView) {
+  const [data, setData] = useState(ZERO_DATA)
+  const frameRef = useRef(null)
+
+  useEffect(() => {
+    if (!inView) return
+
+    // delay start slightly so card fade-in plays first
+    const startDelay = setTimeout(() => {
+      const duration = 1200
+      const startTime = performance.now()
+
+      const tick = (now) => {
+        const elapsed = now - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        // ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3)
+
+        setData(TARGET_DATA.map(d => ({
+          ...d,
+          value: Math.round(d.value * eased),
+        })))
+
+        if (progress < 1) {
+          frameRef.current = requestAnimationFrame(tick)
+        }
+      }
+
+      frameRef.current = requestAnimationFrame(tick)
+    }, 500)
+
+    return () => {
+      clearTimeout(startDelay)
+      if (frameRef.current) cancelAnimationFrame(frameRef.current)
+    }
+  }, [inView])
+
+  return data
 }
 
 const CustomTooltip = ({ active, payload }) => {
@@ -52,9 +90,29 @@ const CustomTooltip = ({ active, payload }) => {
   return null
 }
 
+// Animated dot on the radar line
+const AnimatedRadarDot = (props) => {
+  const { cx, cy, index } = props
+  return (
+    <motion.circle
+      key={`dot-${index}`}
+      cx={cx}
+      cy={cy}
+      r={4}
+      fill="rgb(var(--brand))"
+      stroke="rgb(var(--bg-surface))"
+      strokeWidth={2}
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 0.8 + index * 0.07, duration: 0.3, ease: 'backOut' }}
+    />
+  )
+}
+
 export default function Stats() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const animatedData = useAnimatedRadarData(inView)
 
   return (
     <section id="impacto" ref={ref} className="section-padding bg-base">
@@ -87,7 +145,7 @@ export default function Stats() {
           </motion.p>
         </div>
 
-        {/* Stats + Chart grid */}
+        {/* Stats + Chart */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
           {/* Counters */}
@@ -98,7 +156,7 @@ export default function Stats() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.15 + i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-surface border border-theme rounded-2xl p-5 sm:p-6 flex flex-col gap-2 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group"
+                className="bg-surface border border-theme rounded-2xl p-5 sm:p-6 flex flex-col gap-2 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
               >
                 <div className="text-4xl sm:text-5xl font-extrabold gradient-text leading-none tracking-tight">
                   <Counter target={s.value} suffix={s.suffix} inView={inView} />
@@ -111,15 +169,20 @@ export default function Stats() {
 
           {/* Radar Chart */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="bg-surface border border-theme rounded-2xl p-6 sm:p-8"
           >
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center">
+              <motion.div
+                initial={{ rotate: -30, opacity: 0 }}
+                animate={inView ? { rotate: 0, opacity: 1 } : {}}
+                transition={{ delay: 0.5, duration: 0.5, ease: 'backOut' }}
+                className="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center"
+              >
                 <TrendingUp size={15} className="text-brand" />
-              </div>
+              </motion.div>
               <div>
                 <p className="text-sm font-bold text-primary-theme">Áreas de Impacto</p>
                 <p className="text-xs text-muted-theme">Cobertura por especialidad</p>
@@ -127,7 +190,10 @@ export default function Stats() {
             </div>
 
             <ResponsiveContainer width="100%" height={260}>
-              <RadarChart data={radarData} margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
+              <RadarChart
+                data={animatedData}
+                margin={{ top: 5, right: 20, bottom: 5, left: 20 }}
+              >
                 <PolarGrid stroke="rgb(var(--border))" />
                 <PolarAngleAxis
                   dataKey="area"
@@ -141,9 +207,27 @@ export default function Stats() {
                   fill="rgb(var(--brand))"
                   fillOpacity={0.18}
                   strokeWidth={2}
+                  isAnimationActive={false}
+                  dot={<AnimatedRadarDot />}
                 />
               </RadarChart>
             </ResponsiveContainer>
+
+            {/* Legend */}
+            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-4 justify-center">
+              {TARGET_DATA.map((d, i) => (
+                <motion.div
+                  key={d.area}
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : {}}
+                  transition={{ delay: 0.9 + i * 0.06 }}
+                  className="flex items-center gap-1.5 text-xs text-muted-theme"
+                >
+                  <span className="w-2 h-2 rounded-full bg-brand inline-block" />
+                  {d.area} <span className="font-semibold text-primary-theme">{d.value}%</span>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
 
