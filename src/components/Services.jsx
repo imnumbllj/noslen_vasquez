@@ -1,24 +1,33 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Mic, Users, BookHeart, ArrowUpRight, Sparkles } from 'lucide-react'
+import { Mic, Users, BookHeart, Flame, ArrowUpRight, Sparkles } from 'lucide-react'
 
 const services = [
   {
     icon: Mic,
     tag: 'Conferencias',
     title: 'Conferencista Motivacional',
-    desc: 'Presentaciones de alto impacto para empresas, universidades y eventos que quieran inspirar a su equipo a través del manejo emocional, liderazgo personal y resiliencia.',
+    desc: 'Presentaciones de alto impacto para empresas, universidades y eventos —desde el Aula Magna de la Universidad de La Habana hasta escenarios internacionales— que inspiran a través del manejo emocional, liderazgo personal y resiliencia.',
     bullets: ['Charlas presenciales y virtuales', 'Adaptadas a tu audiencia y contexto', 'Dinámicas y altamente participativas'],
     cta: 'Invítame a tu evento',
     accent: 'green',
   },
   {
+    icon: Flame,
+    tag: 'Programa',
+    title: 'Círculo Fénix 🔥',
+    desc: 'Un programa de transformación de 21 días diseñado para renacer desde adentro. Herramientas de inteligencia emocional, bienestar no negociable y decisiones conscientes para ser la dueña de tu tiempo.',
+    bullets: ['21 días de transformación profunda', 'Inteligencia emocional en acción', 'Comunidad de mujeres en crecimiento'],
+    cta: 'Únete al Círculo',
+    accent: 'orange',
+  },
+  {
     icon: Users,
-    tag: 'Talleres',
-    title: 'Talleres y Programas Grupales',
-    desc: 'Espacios de transformación colectiva donde mujeres y jóvenes aprenden herramientas prácticas para gestionar el estrés, fortalecer su autoestima y vivir con propósito.',
-    bullets: ['Grupos reducidos para mayor impacto', 'Metodología vivencial y práctica', 'Para mujeres, adolescentes y familias'],
-    cta: 'Ver programa',
+    tag: 'Reality Show',
+    title: 'Peleadores Adolescentes',
+    desc: 'El primer reality show de emprendimiento adolescente en Cuba. 18 participantes compiten por mentoría, crecimiento personal y financiamiento para sus proyectos. Disponible en YouTube @gladiuscinema.',
+    bullets: ['Reality show en YouTube @gladiuscinema', '18 jóvenes emprendedores', '3 ganadores obtienen financiamiento'],
+    cta: 'Ver el show',
     accent: 'gold',
   },
   {
@@ -53,6 +62,13 @@ const accentClasses = {
     bullet: 'bg-rose-500',
     link: 'text-rose-600 dark:text-rose-400 border-rose-500/30 hover:border-rose-500',
     hover: 'hover:border-rose-500/30',
+  },
+  orange: {
+    badge: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20',
+    icon: 'bg-orange-500/10 text-orange-600 dark:text-orange-400',
+    bullet: 'bg-orange-500',
+    link: 'text-orange-600 dark:text-orange-400 border-orange-500/30 hover:border-orange-500',
+    hover: 'hover:border-orange-500/30',
   },
 }
 
@@ -92,7 +108,7 @@ export default function Services() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {services.map((s, i) => {
             const c = accentClasses[s.accent]
             const Icon = s.icon

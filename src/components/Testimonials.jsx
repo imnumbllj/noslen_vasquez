@@ -28,40 +28,13 @@ const testimonials = [
     real: true,
   },
   {
-    name: 'Carmen R.',
-    handle: null,
-    role: 'Participante del programa grupal',
-    text: 'El taller de Alma fue un antes y un después en mi vida. Aprendí herramientas que uso todos los días para manejar el estrés y ser más feliz de verdad.',
-    initial: 'C',
-    color: 'bg-amber-500',
-    real: false,
-  },
-  {
-    name: 'Laura P.',
-    handle: null,
-    role: 'Usuaria del Diario Motivacional',
-    text: 'El Diario Alma de Mujer es lo mejor que me he regalado. Cada página me recuerda quién soy y hacia dónde quiero ir. Lo recomiendo con el alma.',
+    name: 'La Castillo V.',
+    handle: '@lacastillov',
+    role: 'Participante · Círculo Fénix',
+    text: '100% la experiencia que toda persona necesita ❤️✏️',
     initial: 'L',
-    color: 'bg-rose-500',
-    real: false,
-  },
-  {
-    name: 'Andrea M.',
-    handle: null,
-    role: 'Madre de participante · Talleres',
-    text: 'Mi hija participó en uno de los talleres de Noslen y el cambio fue impresionante. Aprendió a gestionar sus emociones con una madurez que sorprende.',
-    initial: 'A',
-    color: 'bg-sky-500',
-    real: false,
-  },
-  {
-    name: 'Patricia G.',
-    handle: null,
-    role: 'Organizadora de evento corporativo',
-    text: 'Invitamos a Noslen a nuestra empresa y fue la mejor decisión del año. El equipo salió motivado, unido y con nuevas herramientas para el día a día.',
-    initial: 'P',
-    color: 'bg-teal-500',
-    real: false,
+    color: 'bg-orange-500',
+    real: true,
   },
 ]
 
@@ -148,7 +121,7 @@ export default function Testimonials() {
           transition={{ delay: 0.65 }}
           className="text-center text-xs text-muted-theme mt-8"
         >
-          ✦ Los testimonios marcados como "Real" son comentarios públicos de redes sociales. Los demás son experiencias representativas con nombres abreviados por privacidad.
+          ✦ Todos los testimonios son comentarios públicos reales de redes sociales verificados.
         </motion.p>
       </div>
     </section>

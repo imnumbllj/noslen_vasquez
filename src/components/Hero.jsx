@@ -24,7 +24,7 @@ export default function Hero() {
           <motion.div variants={fadeUp(0)} initial="hidden" animate="show">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/10 border border-brand/20 text-brand text-xs font-semibold uppercase tracking-wider">
               <Mic size={12} />
-              Conferencista Motivacional · Cuba & Internacional
+              Conferencista Motivacional · Asesora Emocional
             </span>
           </motion.div>
 

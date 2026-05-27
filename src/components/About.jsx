@@ -4,11 +4,11 @@ import { CheckCircle2, Heart, Mic2, BookOpen, Leaf } from 'lucide-react'
 import PhotoPlaceholder from './PhotoPlaceholder'
 
 const values = [
-  { icon: Heart, text: 'Bienestar emocional auténtico y duradero' },
-  { icon: Mic2, text: 'Conferencista con más de 10 años en escena' },
+  { icon: Heart, text: 'Asesora Emocional y Conferencista Motivacional' },
+  { icon: Mic2, text: 'Más de 10 años transformando vidas en escena' },
   { icon: BookOpen, text: 'Autora del Diario Motivacional Alma de Mujer' },
   { icon: Leaf, text: 'Fundadora y CEO de Alma Crecimiento' },
-  { icon: CheckCircle2, text: 'Pionera del programa Peleadores Adolescentes' },
+  { icon: CheckCircle2, text: 'Creadora del Círculo Fénix y Peleadores' },
 ]
 
 const fadeUp = (delay = 0) => ({
@@ -80,7 +80,7 @@ export default function About() {
             animate={inView ? 'show' : 'hidden'}
             className="text-secondary-theme text-base sm:text-lg leading-relaxed"
           >
-            Soy <strong className="text-primary-theme font-semibold">Noslen Vázquez</strong>, Conferencista Motivacional Cubana con más de una década acompañando a personas —especialmente mujeres— a reconectar con su bienestar emocional. Mi misión:{' '}
+            Soy <strong className="text-primary-theme font-semibold">Noslen Vázquez</strong>, Conferencista Motivacional y Asesora Emocional cubana con más de una década acompañando a personas —especialmente mujeres— a reconectar con su bienestar emocional. Mi misión:{' '}
             <strong className="text-primary-theme font-semibold">ayudarte a dominar tus emociones, convertir el estrés en fortaleza y elegir ser feliz cada día.</strong>
           </motion.p>
 
@@ -90,8 +90,8 @@ export default function About() {
             animate={inView ? 'show' : 'hidden'}
             className="text-secondary-theme leading-relaxed"
           >
-            Desde las primeras conferencias en Cuba hasta escenarios internacionales, he aprendido que la felicidad no es un destino —es una decisión. Fundé{' '}
-            <strong className="text-primary-theme font-semibold">Alma Crecimiento</strong> para llevar esas herramientas a quienes más las necesitan.
+            Desde las primeras conferencias en Cuba hasta escenarios internacionales —incluyendo el Aula Magna de la Universidad de La Habana— he aprendido que la felicidad no es un destino, es una decisión. Fundé{' '}
+            <strong className="text-primary-theme font-semibold">Alma Crecimiento</strong> para llevar esas herramientas a quienes más las necesitan, a través del Círculo Fénix, el programa Peleadores y mucho más.
           </motion.p>
 
           {/* Value list */}
