@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Mic, Star } from 'lucide-react'
-import PhotoPlaceholder from './PhotoPlaceholder'
 
 /* Stagger container */
 const container = {
@@ -110,10 +109,11 @@ export default function Hero() {
           <div className="absolute -inset-4 rounded-3xl bg-brand/5 blur-2xl" />
 
           <div className="relative pl-4 pb-4 sm:pl-6 sm:pb-6">
-            <PhotoPlaceholder
-              label="Noslen Vázquez"
-              aspectRatio="aspect-[3/4]"
-              className="w-full max-w-sm mx-auto lg:max-w-full rounded-2xl shadow-2xl shadow-black/20"
+            <img
+              src="/images/noslen-hero.jpg"
+              alt="Noslen Vázquez en Circuito Networking Cuba"
+              className="w-full max-w-sm mx-auto lg:max-w-full rounded-2xl shadow-2xl shadow-black/20 object-cover object-top aspect-[3/4]"
+              style={{ filter: 'brightness(1.02) contrast(1.04) saturate(1.05)' }}
             />
 
             {/* Floating card — bottom-left */}

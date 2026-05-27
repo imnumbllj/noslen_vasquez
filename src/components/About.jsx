@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { CheckCircle2, Heart, Mic2, BookOpen, Leaf, ArrowRight } from 'lucide-react'
-import PhotoPlaceholder from './PhotoPlaceholder'
 
 const container = {
   hidden: {},
@@ -54,10 +53,11 @@ export default function About() {
             variants={item}
             className="card overflow-hidden lg:row-span-2 min-h-[300px] lg:min-h-0"
           >
-            <PhotoPlaceholder
-              label="Noslen Vázquez"
-              aspectRatio="aspect-[3/4]"
-              className="w-full h-full object-cover"
+            <img
+              src="/images/noslen-reading.jpg"
+              alt="Noslen Vázquez"
+              className="w-full h-full object-cover object-center"
+              style={{ minHeight: '300px', filter: 'brightness(1.01) contrast(1.03) saturate(1.04)' }}
             />
           </motion.div>
 
@@ -121,16 +121,25 @@ export default function About() {
             </a>
           </motion.div>
 
-          {/* ── Quote card ── */}
+          {/* ── Alma photo card ── */}
           <motion.div
             variants={item}
-            className="card p-7 flex flex-col justify-between gap-4 bg-muted-theme"
+            className="card overflow-hidden relative min-h-[200px]"
           >
-            <span className="text-5xl leading-none text-brand/30 font-serif select-none">"</span>
-            <p className="text-primary-theme font-semibold text-sm leading-relaxed italic flex-1">
-              Ser felices, no perfectas. La receta es simple, pero el camino es transformador.
-            </p>
-            <p className="text-xs text-muted-theme font-medium">— Noslen Vázquez</p>
+            <img
+              src="/images/noslen-alma.jpg"
+              alt="Noslen Vázquez — Elige ser dueña de tu tiempo"
+              className="w-full h-full object-cover object-center absolute inset-0"
+              style={{ filter: 'brightness(0.88) contrast(1.05) saturate(1.08)' }}
+            />
+            {/* Gradient overlay + text */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-5">
+              <p className="text-white font-semibold text-sm leading-snug italic">
+                "Elige ser dueña de tu tiempo."
+              </p>
+              <p className="text-white/55 text-xs mt-1">— Noslen Vázquez</p>
+            </div>
           </motion.div>
 
         </motion.div>
