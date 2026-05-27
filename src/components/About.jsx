@@ -24,7 +24,7 @@ export default function About() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="sobre-mi" ref={ref} className="pt-16 pb-24 lg:pt-20 lg:pb-32 bg-base relative overflow-hidden">
+    <section id="sobre-mi" ref={ref} className="pt-8 pb-24 lg:pt-12 lg:pb-32 bg-base relative overflow-hidden">
       {/* Subtle accent */}
       <div className="absolute right-0 top-1/4 w-[500px] h-[500px] rounded-full bg-brand/[0.05] blur-3xl pointer-events-none" />
 

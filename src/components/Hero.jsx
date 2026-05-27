@@ -36,7 +36,7 @@ export default function Hero() {
       </div>
 
       {/* ── Layout ── */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full pt-28 pb-12 lg:pt-36 lg:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full pt-28 pb-4 lg:pt-36 lg:pb-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
         {/* TEXT */}
         <motion.div

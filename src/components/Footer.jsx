@@ -1,4 +1,4 @@
-import { Heart, Leaf } from 'lucide-react'
+import { Heart, Leaf, MessageCircle } from 'lucide-react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 const InstagramIcon = () => (
@@ -46,6 +46,7 @@ export default function Footer() {
               {[
                 { href: 'https://www.instagram.com/noslen_vazquez', icon: InstagramIcon, label: 'Instagram' },
                 { href: 'https://www.facebook.com/noslen.vazquez.9', icon: FacebookIcon, label: 'Facebook' },
+                { href: 'https://wa.me/5352839729', icon: MessageCircle, label: 'WhatsApp' },
               ].map(({ href, icon: Icon, label }) => (
                 <a
                   key={label}

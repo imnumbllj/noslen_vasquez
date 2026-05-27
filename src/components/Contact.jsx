@@ -85,8 +85,8 @@ export default function Contact() {
               {
                 icon: MessageCircle,
                 label: 'WhatsApp',
-                value: 'Escríbeme directo',
-                href: '#',
+                value: '+53 52839729',
+                href: 'https://wa.me/5352839729',
                 bg: 'bg-green-500',
               },
               {
