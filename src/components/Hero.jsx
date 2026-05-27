@@ -108,8 +108,8 @@ export default function Hero() {
 
           <div className="relative pl-4 pb-4 sm:pl-6 sm:pb-6">
             <img
-              src="/images/noslen-hero.jpg"
-              alt="Noslen Vázquez en Circuito Networking Cuba"
+              src="/images/noslen-pro-1.webp"
+              alt="Noslen Vázquez — Conferencista Motivacional"
               className="w-full max-w-sm mx-auto lg:max-w-full rounded-2xl shadow-2xl shadow-black/20 object-cover object-[center_20%] aspect-[3/4]"
               style={{ filter: 'brightness(1.02) contrast(1.04) saturate(1.05)' }}
             />

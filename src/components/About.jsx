@@ -54,7 +54,7 @@ export default function About() {
             className="card overflow-hidden relative lg:row-span-2 min-h-[340px] lg:min-h-[460px]"
           >
             <img
-              src="/images/noslen-reading.jpg"
+              src="/images/noslen-pro-2.webp"
               alt="Noslen Vázquez"
               className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
               style={{ filter: 'brightness(1.01) contrast(1.03) saturate(1.04)' }}
@@ -127,8 +127,8 @@ export default function About() {
             className="card overflow-hidden relative min-h-[240px]"
           >
             <img
-              src="/images/noslen-alma.jpg"
-              alt="Noslen Vázquez — Elige ser dueña de tu tiempo"
+              src="/images/noslen-event-1.jpg"
+              alt="Noslen Vázquez — evento"
               className="w-full h-full object-cover object-center absolute inset-0"
               style={{ filter: 'brightness(0.88) contrast(1.05) saturate(1.08)' }}
             />

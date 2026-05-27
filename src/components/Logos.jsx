@@ -1,16 +1,14 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-/* Empresas y marcas que han confiado en el proceso */
+/* Logos reales de empresas colaboradoras */
 const logos = [
-  { name: 'Divan Tours',            initial: 'DT' },
-  { name: 'ServiGenLi SURL',        initial: 'SG' },
-  { name: 'Alma Crecimiento',       initial: 'AC' },
-  { name: 'Peleadores Cuba',        initial: 'PC' },
-  { name: 'Circuito Networking',    initial: 'CN' },
-  { name: 'Gladius Cinema',         initial: 'GC' },
-  { name: 'Capibario',              initial: 'CB' },
-  { name: 'Aula Magna UCCM',        initial: 'AM' },
+  { src: '/images/logos/logo-sgl.webp',    alt: 'ServiGenLi SURL' },
+  { src: '/images/logos/logo-1.webp',      alt: 'Colaborador' },
+  { src: '/images/logos/logo-2.webp',      alt: 'Colaborador' },
+  { src: '/images/logos/logo-3.webp',      alt: 'Colaborador' },
+  { src: '/images/logos/logo-5.webp',      alt: 'Colaborador' },
+  { src: '/images/logos/logo-noslen.webp', alt: 'Noslen Vázquez' },
 ]
 
 /* Duplicamos para el efecto marquee infinito */
@@ -35,7 +33,7 @@ export default function Logos() {
         </p>
       </motion.div>
 
-      {/* Marquee container */}
+      {/* Marquee */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
@@ -43,42 +41,44 @@ export default function Logos() {
         className="relative"
       >
         {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
+        <div
+          className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to right, rgb(var(--bg-surface)), transparent)' }}
         />
-        <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
+        <div
+          className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to left, rgb(var(--bg-surface)), transparent)' }}
         />
 
         {/* Scrolling track */}
         <div className="flex overflow-hidden">
           <div
-            className="flex gap-4 items-center"
-            style={{
-              animation: 'marquee 28s linear infinite',
-              width: 'max-content',
-            }}
+            className="flex gap-6 items-center"
+            style={{ animation: 'marquee-logos 30s linear infinite', width: 'max-content' }}
           >
             {marqueeItems.map((logo, i) => (
               <div
-                key={`${logo.name}-${i}`}
-                className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-theme bg-base
-                           hover:border-brand/30 hover:bg-brand/5 transition-all duration-200
-                           cursor-default select-none flex-shrink-0"
+                key={i}
+                className="flex-shrink-0 h-14 w-32 flex items-center justify-center
+                           rounded-xl border border-theme bg-base px-4
+                           hover:border-brand/30 transition-colors duration-200"
               >
-                <div className="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-brand text-[10px] font-black tracking-tight">{logo.initial}</span>
-                </div>
-                <span className="text-sm font-semibold text-secondary-theme whitespace-nowrap">{logo.name}</span>
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="max-h-9 max-w-full object-contain"
+                  style={{ filter: 'grayscale(1) brightness(0.9) contrast(1.1)', opacity: 0.7 }}
+                  onMouseEnter={e => { e.currentTarget.style.filter = 'none'; e.currentTarget.style.opacity = '1' }}
+                  onMouseLeave={e => { e.currentTarget.style.filter = 'grayscale(1) brightness(0.9) contrast(1.1)'; e.currentTarget.style.opacity = '0.7' }}
+                />
               </div>
             ))}
           </div>
         </div>
       </motion.div>
 
-      {/* Keyframe animation */}
       <style>{`
-        @keyframes marquee {
+        @keyframes marquee-logos {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
