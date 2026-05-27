@@ -130,11 +130,13 @@ export default function AlmaPage() {
 
       {/* ── HERO ── */}
       <section className="relative min-h-[85vh] flex items-center pt-20 overflow-hidden bg-base">
+        {/* Dot grid */}
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgb(34 197 94 / 0.12) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
         {/* Background orbs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-emerald-500/[0.07] blur-3xl" />
-          <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] rounded-full bg-orange-500/[0.05] blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-emerald-500/[0.03] blur-3xl" />
+          <div className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-emerald-500/[0.15] blur-3xl" />
+          <div className="absolute -bottom-32 -left-20 w-[500px] h-[500px] rounded-full bg-orange-500/[0.09] blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-emerald-500/[0.05] blur-3xl" />
         </div>
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -229,7 +231,7 @@ export default function AlmaPage() {
             className="hidden lg:flex flex-col gap-4"
           >
             {/* Main card */}
-            <div className="bg-surface border border-theme rounded-3xl p-8 flex flex-col gap-6 shadow-2xl shadow-emerald-500/10">
+            <div className="card-depth rounded-3xl p-8 flex flex-col gap-6 glow-brand">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
                   <Leaf size={26} className="text-white" />
@@ -258,7 +260,7 @@ export default function AlmaPage() {
                 { emoji: '🔥', label: 'Peleadores Cuba' },
                 { emoji: '🫀', label: 'SOMOS ALMA' },
               ].map(item => (
-                <div key={item.label} className="bg-surface border border-theme rounded-2xl p-4 flex flex-col items-center gap-2">
+                <div key={item.label} className="card-depth rounded-2xl p-4 flex flex-col items-center gap-2 hover:-translate-y-0.5 transition-transform duration-200">
                   <span className="text-2xl">{item.emoji}</span>
                   <p className="text-[11px] font-semibold text-muted-theme text-center leading-tight">{item.label}</p>
                 </div>
@@ -266,7 +268,7 @@ export default function AlmaPage() {
             </div>
 
             {/* Instagram badge */}
-            <div className="bg-surface border border-theme rounded-2xl p-4 flex items-center gap-3">
+            <div className="card-depth rounded-2xl p-4 flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white flex-shrink-0">
                 <IgIcon size={16} />
               </div>
@@ -315,7 +317,7 @@ export default function AlmaPage() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={missionInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.15 + i * 0.1, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-base border border-theme rounded-2xl p-6 flex flex-col gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                className="card-depth rounded-2xl p-6 flex flex-col gap-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                   <p.icon size={20} className="text-emerald-500" />
@@ -380,7 +382,7 @@ export default function AlmaPage() {
                   initial={{ opacity: 0, y: 28 }}
                   animate={programsInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.15 + i * 0.12, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                  className={`group bg-surface border border-theme rounded-2xl p-6 sm:p-7 flex flex-col gap-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${c.hover}`}
+                  className={`group card-depth rounded-2xl p-6 sm:p-7 flex flex-col gap-5 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 ${c.hover}`}
                 >
                   <div className="flex items-start justify-between">
                     <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${c.icon}`}>

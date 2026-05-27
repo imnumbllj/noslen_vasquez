@@ -10,11 +10,13 @@ const fadeUp = (delay = 0) => ({
 export default function Hero() {
   return (
     <section id="inicio" className="relative min-h-screen flex items-center pt-16 overflow-hidden bg-base">
+      {/* Dot grid */}
+      <div className="absolute inset-0 dot-grid opacity-60 pointer-events-none" />
       {/* Background orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full bg-brand/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-gold/5 blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-brand/[0.03] blur-3xl" />
+        <div className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full bg-brand/[0.14] blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full bg-gold/[0.10] blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-brand/[0.05] blur-3xl" />
       </div>
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -120,7 +122,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: 20, y: 20 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 1.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute bottom-0 left-0 sm:bottom-1 sm:left-1 bg-surface rounded-2xl shadow-xl border border-theme p-3.5 flex items-center gap-3 max-w-[190px]"
+            className="absolute bottom-0 left-0 sm:bottom-1 sm:left-1 card-depth rounded-2xl p-3.5 flex items-center gap-3 max-w-[190px]"
           >
             <div className="w-9 h-9 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">
               <Sparkles size={16} className="text-brand" />

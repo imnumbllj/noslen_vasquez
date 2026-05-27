@@ -2,26 +2,26 @@
 
 @layer base {
   :root {
-    --bg: 250 250 248;
+    --bg: 246 248 246;
     --bg-surface: 255 255 255;
-    --bg-muted: 241 245 249;
-    --text-primary: 15 23 42;
-    --text-secondary: 71 85 105;
-    --text-muted: 148 163 184;
-    --border: 226 232 240;
+    --bg-muted: 237 242 238;
+    --text-primary: 10 20 14;
+    --text-secondary: 55 75 62;
+    --text-muted: 130 150 138;
+    --border: 213 225 217;
     --brand: 22 163 74;
     --brand-light: 34 197 94;
     --gold: 245 158 11;
   }
 
   .dark {
-    --bg: 8 14 11;
-    --bg-surface: 13 22 17;
-    --bg-muted: 20 33 25;
-    --text-primary: 248 250 252;
-    --text-secondary: 203 213 225;
-    --text-muted: 100 116 139;
-    --border: 30 46 36;
+    --bg: 5 9 7;
+    --bg-surface: 10 17 13;
+    --bg-muted: 17 28 21;
+    --text-primary: 240 248 244;
+    --text-secondary: 185 205 193;
+    --text-muted: 88 110 96;
+    --border: 24 40 30;
     --brand: 34 197 94;
     --brand-light: 74 222 128;
     --gold: 251 191 36;
@@ -59,16 +59,16 @@
 }
 
 @layer utilities {
-  .bg-surface { background-color: rgb(var(--bg-surface)); }
-  .bg-base { background-color: rgb(var(--bg)); }
-  .bg-muted-theme { background-color: rgb(var(--bg-muted)); }
-  .text-primary-theme { color: rgb(var(--text-primary)); }
+  .bg-surface    { background-color: rgb(var(--bg-surface)); }
+  .bg-base       { background-color: rgb(var(--bg)); }
+  .bg-muted-theme{ background-color: rgb(var(--bg-muted)); }
+  .text-primary-theme   { color: rgb(var(--text-primary)); }
   .text-secondary-theme { color: rgb(var(--text-secondary)); }
-  .text-muted-theme { color: rgb(var(--text-muted)); }
-  .border-theme { border-color: rgb(var(--border)); }
-  .text-brand { color: rgb(var(--brand)); }
-  .bg-brand { background-color: rgb(var(--brand)); }
-  .text-gold { color: rgb(var(--gold)); }
+  .text-muted-theme     { color: rgb(var(--text-muted)); }
+  .border-theme  { border-color: rgb(var(--border)); }
+  .text-brand    { color: rgb(var(--brand)); }
+  .bg-brand      { background-color: rgb(var(--brand)); }
+  .text-gold     { color: rgb(var(--gold)); }
 
   .font-display { font-family: 'Playfair Display', Georgia, serif; }
 
@@ -84,12 +84,56 @@
   }
 
   .glass {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background-color: rgb(var(--bg-surface) / 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background-color: rgb(var(--bg-surface) / 0.88);
     border: 1px solid rgb(var(--border));
   }
 
+  /* ── Card depth ── */
+  .card-depth {
+    background-color: rgb(var(--bg-surface));
+    border: 1px solid rgb(var(--border));
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.04),
+      0 4px 12px rgb(0 0 0 / 0.06),
+      0 0 0 1px rgb(var(--border) / 0.5);
+  }
+
+  .dark .card-depth {
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.3),
+      0 4px 16px rgb(0 0 0 / 0.4),
+      inset 0 1px 0 rgb(255 255 255 / 0.03);
+  }
+
+  /* ── Glow accents ── */
+  .glow-brand {
+    box-shadow: 0 0 40px rgb(var(--brand) / 0.15), 0 0 80px rgb(var(--brand) / 0.06);
+  }
+
+  /* ── Dot grid background ── */
+  .dot-grid {
+    background-image: radial-gradient(rgb(var(--brand) / 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .dark .dot-grid {
+    background-image: radial-gradient(rgb(var(--brand) / 0.1) 1px, transparent 1px);
+  }
+
+  /* ── Noise texture overlay ── */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0.4;
+  }
+
+  /* ── Section padding ── */
   .section-padding {
     padding-top: 5rem;
     padding-bottom: 5rem;

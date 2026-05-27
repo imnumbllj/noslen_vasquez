@@ -138,7 +138,7 @@ export default function Stats() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.15 + i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-surface border border-theme rounded-2xl p-5 sm:p-6 flex flex-col gap-2 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                className="card-depth rounded-2xl p-5 sm:p-6 flex flex-col gap-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="text-4xl sm:text-5xl font-extrabold gradient-text leading-none tracking-tight">
                   <Counter target={s.value} suffix={s.suffix} inView={inView} />
@@ -154,7 +154,7 @@ export default function Stats() {
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-surface border border-theme rounded-2xl p-6 sm:p-8"
+            className="card-depth rounded-2xl p-6 sm:p-8"
           >
             <div className="flex items-center gap-2 mb-6">
               <motion.div

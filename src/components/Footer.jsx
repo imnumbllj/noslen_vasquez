@@ -1,5 +1,5 @@
 import { Heart, Leaf } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 const InstagramIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -14,6 +14,16 @@ const FacebookIcon = () => (
 )
 
 export default function Footer() {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  const goToSection = (id) => (e) => {
+    e.preventDefault()
+    const scroll = () => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    if (pathname === '/') scroll()
+    else { navigate('/'); setTimeout(scroll, 180) }
+  }
+
   return (
     <footer className="bg-[#080e0b] text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
@@ -54,16 +64,17 @@ export default function Footer() {
           {/* Links */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-2">
             {[
-              { label: 'Inicio', href: '#inicio' },
-              { label: 'Sobre mí', href: '#sobre-mi' },
-              { label: 'Servicios', href: '#servicios' },
-              { label: 'Impacto', href: '#impacto' },
-              { label: 'Testimonios', href: '#testimonios' },
-              { label: 'Contacto', href: '#contacto' },
+              { label: 'Inicio',      id: 'inicio' },
+              { label: 'Sobre mí',    id: 'sobre-mi' },
+              { label: 'Servicios',   id: 'servicios' },
+              { label: 'Impacto',     id: 'impacto' },
+              { label: 'Testimonios', id: 'testimonios' },
+              { label: 'Contacto',    id: 'contacto' },
             ].map((l) => (
               <a
                 key={l.label}
-                href={l.href}
+                href={`/#${l.id}`}
+                onClick={goToSection(l.id)}
                 className="text-sm text-white/50 hover:text-white transition-colors font-medium"
               >
                 {l.label}

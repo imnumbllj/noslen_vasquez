@@ -1,28 +1,46 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sun, Moon, Menu, X, Leaf } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 
 const links = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Sobre mí', href: '#sobre-mi' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Impacto', href: '#impacto' },
-  { label: 'Testimonios', href: '#testimonios' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Inicio',      id: 'inicio' },
+  { label: 'Sobre mí',    id: 'sobre-mi' },
+  { label: 'Servicios',   id: 'servicios' },
+  { label: 'Impacto',     id: 'impacto' },
+  { label: 'Testimonios', id: 'testimonios' },
+  { label: 'Contacto',    id: 'contacto' },
 ]
 
 export default function Navbar() {
   const { dark, toggle } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Smart section scroll: works from any route
+  const goToSection = (id, closeMenu) => (e) => {
+    e.preventDefault()
+    closeMenu?.()
+    const scroll = () => {
+      const el = document.getElementById(id)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
+    if (pathname === '/') {
+      scroll()
+    } else {
+      navigate('/')
+      setTimeout(scroll, 180)
+    }
+  }
 
   return (
     <>
@@ -50,7 +68,8 @@ export default function Navbar() {
             {links.map((l) => (
               <a
                 key={l.label}
-                href={l.href}
+                href={`/#${l.id}`}
+                onClick={goToSection(l.id)}
                 className="px-3 py-1.5 text-sm text-secondary-theme hover:text-primary-theme hover:bg-muted-theme rounded-lg transition-all duration-150 font-medium"
               >
                 {l.label}
@@ -85,7 +104,8 @@ export default function Navbar() {
             </button>
 
             <a
-              href="#contacto"
+              href="/#contacto"
+              onClick={goToSection('contacto')}
               className="hidden md:inline-flex items-center px-4 py-2 rounded-xl bg-brand text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm"
             >
               Conversemos
@@ -133,8 +153,8 @@ export default function Navbar() {
                 {links.map((l) => (
                   <a
                     key={l.label}
-                    href={l.href}
-                    onClick={() => setOpen(false)}
+                    href={`/#${l.id}`}
+                    onClick={goToSection(l.id, () => setOpen(false))}
                     className="px-4 py-3 rounded-xl text-base font-medium text-primary-theme hover:bg-muted-theme transition-colors"
                   >
                     {l.label}
@@ -150,8 +170,8 @@ export default function Navbar() {
               </nav>
               <div className="p-4 border-t border-theme">
                 <a
-                  href="#contacto"
-                  onClick={() => setOpen(false)}
+                  href="/#contacto"
+                  onClick={goToSection('contacto', () => setOpen(false))}
                   className="block w-full py-3 text-center font-semibold bg-brand text-white rounded-xl hover:opacity-90 transition-opacity"
                 >
                   Conversemos

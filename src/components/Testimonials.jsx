@@ -81,7 +81,7 @@ export default function Testimonials() {
               initial={{ opacity: 0, y: 22 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 + i * 0.07, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="group bg-surface border border-theme rounded-2xl p-5 sm:p-6 flex flex-col gap-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              className="group card-depth rounded-2xl p-5 sm:p-6 flex flex-col gap-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               {/* Stars */}
               <div className="flex items-center justify-between">

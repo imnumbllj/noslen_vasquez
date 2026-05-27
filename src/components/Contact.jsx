@@ -69,7 +69,7 @@ export default function Contact() {
                 { icon: MessageCircle, label: 'WhatsApp', value: 'Escríbeme directo', href: '#', bg: 'bg-green-500' },
                 { icon: MapPin, label: 'Ubicación', value: 'Cuba · Internacional', href: null, bg: 'bg-muted-theme' },
               ].map(({ icon: Icon, label, value, href, bg }) => (
-                <div key={label} className="flex items-center gap-4 p-4 bg-base border border-theme rounded-xl hover:border-brand/30 transition-all">
+                <div key={label} className="flex items-center gap-4 p-4 card-depth rounded-xl hover:border-brand/30 transition-all hover:-translate-y-0.5">
                   <div className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center flex-shrink-0 text-white`}>
                     <Icon />
                   </div>
@@ -113,7 +113,7 @@ export default function Contact() {
             ) : (
               <form
                 onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }}
-                className="bg-base border border-theme rounded-2xl p-6 sm:p-8 flex flex-col gap-5"
+                className="card-depth rounded-2xl p-6 sm:p-8 flex flex-col gap-5"
               >
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">

@@ -118,7 +118,7 @@ export default function Services() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.15 + i * 0.1, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                className={`group bg-base border border-theme rounded-2xl p-6 sm:p-7 flex flex-col gap-5 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${c.hover}`}
+                className={`group card-depth rounded-2xl p-6 sm:p-7 flex flex-col gap-5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 ${c.hover}`}
               >
                 <div className="flex items-start justify-between">
                   <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${c.icon}`}>

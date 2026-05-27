@@ -21,7 +21,9 @@ export default function About() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="sobre-mi" ref={ref} className="section-padding bg-surface">
+    <section id="sobre-mi" ref={ref} className="section-padding bg-surface relative overflow-hidden">
+      {/* Background accent */}
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-brand/[0.06] blur-3xl pointer-events-none" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
         {/* Photo grid */}
